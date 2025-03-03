@@ -3,7 +3,9 @@ from langchain_core.messages import AIMessage
 import json
 
 llm_ner = ChatOllama(
-    model="llama3.2",
+    # model="qwen2.5:3b-instruct-q6_K",
+    model="qwen2.5",
+    #model="llama3.2",
     temperature=0,
 )
 # llm_updater = ChatOllama(
