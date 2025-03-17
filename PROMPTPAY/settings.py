@@ -25,7 +25,15 @@ SECRET_KEY = 'django-insecure-6*s7w%4+*1-1pr9rk7gl0cd##@=fw-%0cr0+x298(_*u8%+-@!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "worthy-yak-creative.ngrok-free.app",
+]
+CSRF_TRUSTED_ORIGINS = [
+    " https://worthy-yak-creative.ngrok-free.app",
+]
+
 
 
 # Application definition
