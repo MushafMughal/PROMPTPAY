@@ -1,0 +1,5410 @@
+[
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "EasyPaisa"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to account PK23412421412 nayapay to mushaf"
+        },
+        "response": {
+            "data": {
+                "account_number": "PK23412421412",
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "mushaf"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "wire 100 dollars to my dad in Dubai"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 100,
+                "bank_name": null,
+                "recipient_name": "my dad"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "deposit 10,000 PKR to my savings account in MCB"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 10000,
+                "bank_name": "MCB",
+                "recipient_name": "my savings account"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "transfer 5000 to Ali in UBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": 5000,
+                "bank_name": "UBL",
+                "recipient_name": "Ali"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "fund transfer to Standard Chartered for Sarah"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Standard Chartered",
+                "recipient_name": "Sarah"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "move funds to EasyPaisa wallet"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "make a payment to JazzCash for bill"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": "JazzCash"
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money in meezan bank"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "Meezan Bank",
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "i want to send money"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": null,
+                "recipient_name": null
+            }
+        }
+    },
+    {
+        "payload": {
+            "user_input": "send money to shaz in HBL"
+        },
+        "response": {
+            "data": {
+                "account_number": null,
+                "amount": null,
+                "bank_name": "HBL",
+                "recipient_name": "shaz"
+            }
+        }
+    }
+]
