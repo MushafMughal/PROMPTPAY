@@ -37,7 +37,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 # Application definition
-External_apps = ['chatbot', 'authentication', 'rest_framework']
+External_apps = ['chatbot', 'authentication', 'rest_framework', 'rest_framework_simplejwt']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,6 +47,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ] + External_apps
+    
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+AUTH_USER_MODEL = 'authentication.User'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

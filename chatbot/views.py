@@ -1,22 +1,40 @@
-from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication  # ✅ Correct Import
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.http import JsonResponse
 import json
-from .utils import extract_entities, check_missing_info, update_json_data
+from .utils import *
 
 
-@csrf_exempt
-def extract_data_api(request):
-    """API to extract structured data from user input"""
-    if request.method == "POST":
+class ExtractDataAPI(APIView):
+    authentication_classes = [JWTAuthentication]  # ✅ Now this works
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """API to extract structured data from user input (JWT Protected)"""
         try:
-            data = json.loads(request.body)
+            data = request.data  # DRF automatically parses JSON
             user_input = data.get("user_input", "")
             extracted_data = extract_entities(user_input)
-            return JsonResponse({"data": extracted_data}, status=200)
+            return Response({"data": extracted_data}, status=200)
         except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON format"}, status=400)
+            return Response({"error": "Invalid JSON format"}, status=400)
+
+# @csrf_exempt
+# def extract_data_api(request):
+#     """API to extract structured data from user input"""
+#     if request.method == "POST":
+#         try:
+#             data = json.loads(request.body)
+#             user_input = data.get("user_input", "")
+#             extracted_data = extract_entities(user_input)
+#             return JsonResponse({"data": extracted_data}, status=200)
+#         except json.JSONDecodeError:
+#             return JsonResponse({"error": "Invalid JSON format"}, status=400)
     
-    return JsonResponse({"error": "Only POST requests allowed"}, status=405)
+#     return JsonResponse({"error": "Only POST requests allowed"}, status=405)
 
 @csrf_exempt
 def check_missing_info_api(request):
