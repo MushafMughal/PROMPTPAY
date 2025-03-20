@@ -37,7 +37,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 # Application definition
-External_apps = ['chatbot']
+External_apps = ['chatbot', 'authentication', 'rest_framework']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
