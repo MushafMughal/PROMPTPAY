@@ -8,6 +8,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth.hashers import check_password
+from rest_framework.permissions import IsAuthenticated 
 
 # ✅ Register a new user
 class RegisterUserView(APIView):
@@ -67,4 +68,32 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
+
+class LogoutAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            refresh_token = request.data.get("refresh")
+            access_token = request.data.get("access")  # Get the access token too
+
+            if not refresh_token or not access_token:
+                return Response({"error": "Both access and refresh tokens are required"}, status=400)
+
+            # ✅ Blacklist Refresh Token
+            refresh = RefreshToken(refresh_token)
+            refresh.blacklist()
+
+            # ✅ Blacklist Access Token (custom, since SimpleJWT doesn't track them by default)
+            access = AccessToken(access_token)
+            access.set_exp(lifetime=0)  # Make it instantly expire
+
+            return Response({"message": "Logged out successfully"}, status=200)
+        except Exception as e:
+            return Response({"error": "Invalid token"}, status=400)
 

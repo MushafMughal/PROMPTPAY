@@ -61,6 +61,16 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'authentication.User'
 
 
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),  # ✅ Auto logout after 10 min
+    "REFRESH_TOKEN_LIFETIME": timedelta(seconds=0),  # ❌ Disable refresh tokens
+    "ROTATE_REFRESH_TOKENS": False,  # ❌ No token rotation
+    "BLACKLIST_AFTER_ROTATION": True,  # ✅ Prevent reuse of old tokens
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
