@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +38,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 # Application definition
-External_apps = ['chatbot', 'authentication', 'rest_framework', 'rest_framework_simplejwt']
+External_apps = ['chatbot', 'authentication']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -46,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework', 'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist'
 ] + External_apps
     
 
@@ -56,19 +59,34 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    # "EXCEPTION_HANDLER": "authentication.utils.custom_jwt_exception_handler",  # Custom handler
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    
 }
 
 AUTH_USER_MODEL = 'authentication.User'
 
+# SIMPLE_JWT = {
+#     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),  # ✅ Auto logout after 10 min
+#     "REFRESH_TOKEN_LIFETIME": timedelta(seconds=0),  # ❌ Disable refresh tokens
+#     "ROTATE_REFRESH_TOKENS": False,  # ❌ No token rotation
+#     "BLACKLIST_AFTER_ROTATION": True,  # ✅ Prevent reuse of old tokens
+#     "AUTH_HEADER_TYPES": ("Bearer",),
+# }
 
-from datetime import timedelta
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),  # ✅ Auto logout after 10 min
-    "REFRESH_TOKEN_LIFETIME": timedelta(seconds=0),  # ❌ Disable refresh tokens
-    "ROTATE_REFRESH_TOKENS": False,  # ❌ No token rotation
-    "BLACKLIST_AFTER_ROTATION": True,  # ✅ Prevent reuse of old tokens
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,  # Blacklist old refresh tokens
     "AUTH_HEADER_TYPES": ("Bearer",),
+    "TOKEN_BLACKLIST_ENABLED": True,  # Enable token blacklist
 }
 
 MIDDLEWARE = [
@@ -79,6 +97,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # Custom Middleware
+    'authentication.middleware.BlockBlacklistedTokensMiddleware',  # Replace `your_app` with your actual app name
 ]
 
 ROOT_URLCONF = 'PROMPTPAY.urls'

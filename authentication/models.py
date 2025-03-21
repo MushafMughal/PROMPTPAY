@@ -2,6 +2,15 @@ from django.db import models
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 
+
+class BlacklistedAccessToken(models.Model):
+    token = models.CharField(max_length=500, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.token
+
+
 class User(AbstractUser):
     name = models.CharField(max_length=255)  # Full Name
     username = models.CharField(max_length=100, unique=True)  # Username (separate from name)
