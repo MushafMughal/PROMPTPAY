@@ -10,7 +10,6 @@ class BlacklistedAccessToken(models.Model):
     def __str__(self):
         return self.token
 
-
 class User(AbstractUser):
     name = models.CharField(max_length=255)  # Full Name
     username = models.CharField(max_length=100, unique=True)  # Username (separate from name)

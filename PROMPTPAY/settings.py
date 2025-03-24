@@ -99,8 +99,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
     # Custom Middleware
-    'authentication.middleware.BlockBlacklistedTokensMiddleware',  # Replace `your_app` with your actual app name
+    'authentication.middleware.BlockBlacklistedTokensMiddleware',
 ]
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",  # For development
+        "LOCATION": "unique-snowflake",
+    }
+}
+
 
 ROOT_URLCONF = 'PROMPTPAY.urls'
 
@@ -135,7 +143,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'promptpay',
         'USER': 'root',
-        'PASSWORD': 'ISAGI11@op',
+        'PASSWORD': "mydb1234@XTI#2025", #'ISAGI11@op'
         'HOST': 'localhost',
         'PORT': '3306',
     }
