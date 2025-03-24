@@ -1,0 +1,42 @@
+############################################################# Authentication APIs ##############################################################
+
+Register URL (POST): http://localhost:8000/api/auth/register/
+Payload: {
+    "name": "Mushaf Sibtain",
+    "username": "mushafmughal",
+    "cnic": "4220114344577",
+    "email": "mushafmughal99@gmail.com",
+    "phone_number": "+923062061240",
+    "dob": "2003-03-16",
+    "password": "12345678"
+}
+Header: {}
+
+Login URL (POST): http://localhost:8000/api/auth/login/
+Payload: {
+    "username": "mushafmughal",
+    "password": "12345678"
+}
+Header: {}
+
+Logout URL (POST): http://localhost:8000/api/auth/logout/
+Payload: {
+    "refresh": "<Refresh Token>"
+}
+Header: {"Authorization": "Bearer <Access Token>"}
+
+
+############################################################# Core Banking APIs ###############################################################
+
+Account Basic Details URL (GET): http://localhost:8000/api/core/accountdetails/
+Payload: {}
+Header: {"Authorization": "Bearer <Access Token>"}
+
+
+############################################################# Chatbot APIs ####################################################################
+
+PromptPay Chatbot URL (POST): http://localhost:8000/api/chatbot/promptpay/extract/
+Payload: {
+    "user_input": "I want to transfer $500 to John Doe."
+}
+Header: {"Authorization": "Bearer <Access Token>"}
