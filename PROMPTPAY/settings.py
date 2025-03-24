@@ -37,7 +37,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 # Application definition
-External_apps = ['chatbot', 'authentication', 'rest_framework', 'rest_framework_simplejwt','rest_framework_simplejwt.token_blacklist']
+External_apps = ['chatbot', 'authentication', 'core_banking','rest_framework', 'rest_framework_simplejwt','rest_framework_simplejwt.token_blacklist']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,19 +56,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),
-    # "EXCEPTION_HANDLER": "authentication.utils.custom_jwt_exception_handler",  # Custom handler
 }
 
 AUTH_USER_MODEL = 'authentication.User'
-
-# SIMPLE_JWT = {
-#     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),  # ✅ Auto logout after 10 min
-#     "REFRESH_TOKEN_LIFETIME": timedelta(seconds=0),  # ❌ Disable refresh tokens
-#     "ROTATE_REFRESH_TOKENS": False,  # ❌ No token rotation
-#     "BLACKLIST_AFTER_ROTATION": True,  # ✅ Prevent reuse of old tokens
-#     "AUTH_HEADER_TYPES": ("Bearer",),
-# }
-
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  

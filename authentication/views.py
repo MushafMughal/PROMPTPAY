@@ -67,6 +67,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data = super().validate({"username": user.username, "password": password})  # Generate tokens
         data["username"] = user.username  # Add username to response
         data["user_cnic"] = user.cnic  # Add CNIC to response
+        data["user_id"] = user.id  # Add user ID to response
         return data
 
 class MyTokenObtainPairView(TokenObtainPairView):
