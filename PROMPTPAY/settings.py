@@ -36,7 +36,6 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 
-
 # Application definition
 External_apps = ['chatbot', 'authentication']
 
@@ -60,13 +59,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     # "EXCEPTION_HANDLER": "authentication.utils.custom_jwt_exception_handler",  # Custom handler
-}
-
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
-    
 }
 
 AUTH_USER_MODEL = 'authentication.User'
