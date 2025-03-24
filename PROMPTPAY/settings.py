@@ -123,7 +123,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'promptpay',
         'USER': 'root',
-        'PASSWORD': "mydb1234@XTI#2025", #'ISAGI11@op'
+        'PASSWORD': "ISAGI11@op", # ISAGI11@op mydb1234@XTI#2025
         'HOST': 'localhost',
         'PORT': '3306',
     }
