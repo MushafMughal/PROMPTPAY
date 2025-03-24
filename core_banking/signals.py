@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from authentication.models import User
-from .models import BankAccount
+from .models import *
 
 @receiver(post_save, sender=User)
 def create_bank_account(sender, instance, created, **kwargs):
@@ -14,6 +14,19 @@ def create_bank_account(sender, instance, created, **kwargs):
             user=instance,
             account_number=account_number,
             IBAN=iban,
-            balance=1000.00,  # Default starting balance
-            transaction_limit=50000.00  # Default limit
+        )
+
+@receiver(post_save, sender=User)
+def create_card(sender, instance, created, **kwargs):
+    if created:  # Only create a card when a new user registers
+        card_number = Card.generate_unique_card_number()
+        expiry = date.today() + timedelta(days=5*365)  # 5 years from today
+        expiry_date = expiry.strftime('%Y/%m')  # Format YYYY/MM
+        cvv = Card.generate_unique_cvv()
+
+        Card.objects.create(
+            user=instance,
+            card_number=card_number,
+            expiry_date=expiry_date,
+            cvv=cvv,
         )
