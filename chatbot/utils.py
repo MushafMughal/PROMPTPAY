@@ -4,7 +4,7 @@ import json
 
 llm_ner = ChatOllama(
     # model="qwen2.5:3b-instruct-q6_K",
-    model="qwen2.5",
+    model="qwen2.5:3b-instruct-q5_K_M",
     #model="llama3.2",
     temperature=0,
 )
