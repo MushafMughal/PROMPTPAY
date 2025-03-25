@@ -20,8 +20,7 @@ def create_bank_account(sender, instance, created, **kwargs):
 def create_card(sender, instance, created, **kwargs):
     if created:  # Only create a card when a new user registers
         card_number = Card.generate_unique_card_number()
-        expiry = date.today() + timedelta(days=5*365)  # 5 years from today
-        expiry_date = expiry.strftime('%Y/%m')  # Format YYYY/MM
+        expiry_date = Card.generate_expiry_date()
         cvv = Card.generate_unique_cvv()
 
         Card.objects.create(

@@ -2,18 +2,18 @@ from django.db import models
 from authentication.models import User
 import random
 import string
-from datetime import timedelta, date
-
+import datetime
 
 # User's bank account details
 class BankAccount(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)  # Links to User model
-    account_number = models.CharField(max_length=16, unique=True)  # 16-digit Pakistani bank account number
+    account_number = models.CharField(max_length=14, unique=True)  # 16-digit Pakistani bank account number
     IBAN = models.CharField(max_length=24, unique=True)  # 24-character Pakistani IBAN
     balance = models.DecimalField(max_digits=12, decimal_places=2, default=10000.00)  # Default balance
     bank_name = models.CharField(max_length=255, default="PromptPay")  # Default bank name
     created_at = models.DateTimeField(auto_now_add=True)  # Timestamp for account creation
-    
+    last_updated = models.DateTimeField(auto_now=True)  # Timestamp for last update
+
     def __str__(self):
         return f"{self.user.username} - {self.account_number}"
 
@@ -30,22 +30,46 @@ class BankAccount(models.Model):
 class Card(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)  # Each user gets one card
     card_number = models.CharField(max_length=16, unique=True)
-    expiry_date = models.CharField(max_length=7)  # Format YYYY/MM
+    expiry_date = models.CharField(max_length=5)  # Format MM/YY
     cvv = models.CharField(max_length=3)
     card_type = models.CharField(max_length=20, default='Visa')
     card_limit = models.DecimalField(max_digits=10, decimal_places=2, default=50000.00)  # Default limit
-       
+    
     def __str__(self):
         return f"{self.user.username} - **** **** **** {self.card_number[-4:]}"  # Masked for security
 
     @staticmethod
+    def luhn_checksum(card_number):
+        """Calculates the Luhn checksum for a given card number"""
+        digits = [int(d) for d in card_number]
+        for i in range(len(digits) - 2, -1, -2):
+            digits[i] *= 2
+            if digits[i] > 9:
+                digits[i] -= 9
+        return sum(digits) % 10
+
+    @staticmethod
     def generate_unique_card_number():
-        """Generates a unique 16-digit card number"""
+        """Generates a unique 16-digit Visa card number"""
         while True:
-            card_number = ''.join(random.choices(string.digits, k=16))
+            card_number = "4" + ''.join(random.choices("0123456789", k=14))  # Start with 4
+            
+            # Calculate and append Luhn checksum
+            checksum_digit = (10 - Card.luhn_checksum(card_number + "0")) % 10
+            card_number += str(checksum_digit)
+
+            # Ensure uniqueness
             if not Card.objects.filter(card_number=card_number).exists():
                 return card_number
-            
+
+    @staticmethod
+    def generate_expiry_date():
+        """Generates a valid expiry date (MM/YY) at least 3 years from now"""
+        today = datetime.date.today()
+        expiry_year = today.year + 5  # Add 3 years
+        expiry_month = today.month
+        return f"{expiry_month:02d}/{str(expiry_year)[-2:]}"  # MM/YY format
+
     @staticmethod
     def generate_unique_cvv():
         """Generates a unique 3-digit CVV"""
@@ -53,6 +77,7 @@ class Card(models.Model):
             cvv = random.randint(100, 999)
             if not Card.objects.filter(cvv=cvv).exists():
                 return cvv
+
 
 #Users Payee details  
 class Payee(models.Model):
