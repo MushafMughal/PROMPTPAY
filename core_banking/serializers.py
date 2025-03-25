@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import *
+from authentication.utils import CustomAPIException
+
 
 # Serializer for BankAccount model
 class BankAccountSerializer(serializers.ModelSerializer):
@@ -27,14 +29,27 @@ class PayeeSerializer(serializers.ModelSerializer):
         extra_kwargs = {'user': {'read_only': True}}  # ✅ User field is read-only
 
     def validate_account_number(self, value):
-        """Ensure account number is exactly 14 digits"""
+        """Ensure account number is exactly 14 digits and exists in the bank"""
+        
         if not value.isdigit():
-            raise serializers.ValidationError("Account number must contain only digits.")
+            raise CustomAPIException("Account number must contain only digits.", status_code=400)
         if len(value) != 14:
-            raise serializers.ValidationError("Account number must be exactly 14 digits.")
+            raise CustomAPIException("Account number must be exactly 14 digits.", status_code=400)
+
+        # ✅ Check if account exists in the bank system
+        from .models import BankAccount  # Import to avoid circular import issues
+
+        if not BankAccount.objects.filter(account_number=value).exists():
+            raise CustomAPIException("Account number does not exist in the bank system.", status_code=400) 
+        
+        # ❌ Prevent users from adding themselves as a payee
+        user = self.context["request"].user  # ✅ Get the logged-in user
+        user_bank_account = BankAccount.objects.filter(user=user).first()
+        if user_bank_account and user_bank_account.account_number == value:
+            raise CustomAPIException("You cannot add yourself as a payee.", status_code=400)
+
         return value
-
-
+        
 # Serializer for transaction list view (Screen 1)
 class TransactionListSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()

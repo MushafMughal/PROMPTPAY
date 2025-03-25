@@ -6,7 +6,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.shortcuts import get_object_or_404
 from .models import *
 from .serializers import *
-
+from authentication.utils import CustomAPIException
 
 # Get user's bank account details
 @api_view(['GET'])
@@ -48,11 +48,17 @@ def manage_payees(request):
         return Response(serializer.data, status=200)
 
     elif request.method == 'POST':
-        serializer = PayeeSerializer(data=request.data)
+        serializer = PayeeSerializer(data=request.data, context={"request": request})
         if serializer.is_valid():
             serializer.save(user=request.user)  # ✅ Automatically associate the logged-in user
             return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+
+        # ✅ Modify error response if it's related to duplicate payee
+        errors = serializer.errors
+        if "account_number" in errors and "payee with this account number already exists." in errors["account_number"]:
+            return Response({"error": "This payee already exists."}, status=400)
+
+        return Response(errors, status=400)  # Keep other errors unchanged
 
 
 # Get user's transaction history (List View)
