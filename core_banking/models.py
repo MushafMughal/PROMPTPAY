@@ -53,3 +53,51 @@ class Card(models.Model):
             cvv = random.randint(100, 999)
             if not Card.objects.filter(cvv=cvv).exists():
                 return cvv
+
+#Users Payee details  
+class Payee(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="payees")  # User can have multiple payees
+    payee_name = models.CharField(max_length=255)
+    account_number = models.CharField(max_length=20, unique=True)
+    bank_name = models.CharField(max_length=255)
+    added_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when payee was added
+
+    def __str__(self):
+        return f"{self.user.username} -> {self.payee_name} ({self.bank_name})"
+
+
+#Transaction details
+class Transaction(models.Model):
+    TRANSACTION_TYPES = [
+        ('credit', 'Credit'),  # Money received
+        ('debit', 'Debit'),  # Money sent
+        ('bill_payment', 'Bill Payment'),  # Paying a bill
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="transactions")  # User who owns the transaction
+    transaction_id = models.CharField(max_length=50, unique=True)  # Unique transaction identifier
+    transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPES)  # Type of transaction
+    transaction_time = models.DateTimeField(auto_now_add=True)  # Timestamp
+
+    # Amount details
+    amount = models.DecimalField(max_digits=12, decimal_places=2)  # Transaction amount
+    service_fee = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)  # Service fee
+    total_amount = models.DecimalField(max_digits=12, decimal_places=2)  # Total amount including fee
+
+    # Account details (common for all transactions)
+    source_account_title = models.CharField(max_length=255)  # Sender name (for received transactions) or User (for sent)
+    source_bank = models.CharField(max_length=255, blank=True, null=True)  # Optional for bill payments
+    source_account_number = models.CharField(max_length=20, blank=True, null=True)  # Masked account number
+
+    destination_account_title = models.CharField(max_length=255)  # Receiver name or biller name
+    destination_bank = models.CharField(max_length=255, blank=True, null=True)  # Optional for bill payments
+    destination_account_number = models.CharField(max_length=20, blank=True, null=True)  # Masked account number
+
+    # Bill Payment Specific Fields
+    consumer_name = models.CharField(max_length=255, blank=True, null=True)  # For bill payments
+    consumer_number = models.CharField(max_length=20, blank=True, null=True)  # For bill payments
+
+    channel = models.CharField(max_length=50)  # e.g., Raast, IBFT
+
+    def __str__(self):
+        return f"{self.user.username} - {self.transaction_type} - Rs. {self.amount}"
