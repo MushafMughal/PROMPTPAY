@@ -9,7 +9,8 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth.hashers import check_password
-from rest_framework.permissions import IsAuthenticated 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.core.cache import cache
 from django.contrib.auth import get_user_model
@@ -71,7 +72,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         auth_instance.unlock_if_time_passed()  
 
         if auth_instance.is_locked:
-            # raise AuthenticationFailed("Your account is locked. Try again later.")
+            # ❌ Account is locked
+            UserActivityLog.objects.create(
+                user=user,
+                action="login",
+                status="failed",
+                additional_info=json.dumps({"reason": "Account is locked"}),
+            )
             raise CustomAPIException("Your account is locked. Try again later.", 403)
 
         if not user.check_password(password):
@@ -96,10 +103,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # ✅ Fire the custom signal manually after successful authentication
         custom_user_logged_in.send(sender=self.__class__, request=self.context['request'], user=user)
-        # auth_instance.failed_attempts = 0
-        # auth_instance.is_locked = False
-        # auth_instance.locked_at = None
-        # auth_instance.save()
 
         data = super().validate({"username": user.username, "password": password})
         data["username"] = user.username
@@ -126,66 +129,33 @@ class MyTokenObtainPairView(TokenObtainPairView):
 # ✅ Logout user and blacklist refresh token
 class LogoutAPI(APIView):
     permission_classes = [IsAuthenticated]
-
     def post(self, request):
-        user = request.user  # Get the logged-in user
-        ip_address = request.META.get("REMOTE_ADDR")  # Get user's IP address
-        user_agent = request.META.get("HTTP_USER_AGENT", "Unknown User Agent")  # Get user's device info
-
         refresh_token = request.data.get("refresh")
         access_token = request.auth  # Get access token from request header
+        user = request.user
+        ip_address = request.META.get('REMOTE_ADDR', 'Unknown IP')
+        user_agent = request.META.get('HTTP_USER_AGENT', 'Unknown User Agent')
 
-        if not refresh_token and not access_token:
-            # ❌ No tokens provided
-            UserActivityLog.objects.create(
-                user=user,
-                action="logout",
-                status="failed",
-                timestamp=now(),
-                ip_address=ip_address,
-                user_agent=user_agent,
-                additional_info={"message": "No tokens provided. Please provide a refresh or access token."},
-            )
-            return Response({"error": "No tokens provided. Please provide a refresh or access token."}, status=status.HTTP_400_BAD_REQUEST)
+        # ✅ Blacklist Refresh Token
+        if refresh_token:
+            try:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+            except Exception:
+                return Response({"error": "Invalid or already blacklisted refresh token"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"error": "Refresh token is required"}, status=status.HTTP_400_BAD_REQUEST)
         
-        try:
-            # ✅ Blacklist Refresh Token
-            if refresh_token:
-                try:
-                    token = RefreshToken(refresh_token)
-                    token.blacklist()
-                except Exception:
-                    # ❌ Invalid refresh token
-                    UserActivityLog.objects.create(
-                        user=user,
-                        action="logout",
-                        status="failed",
-                        timestamp=now(),
-                        ip_address=ip_address,
-                        user_agent=user_agent,
-                        additional_info={"message": "Invalid refresh token or it has already been blacklisted."},
-                    )
-                    return Response({"error": "Invalid refresh token or it has already been blacklisted."}, status=status.HTTP_400_BAD_REQUEST)
-            
-            # ✅ Blacklist Access Token (custom method)
-            if access_token:
-                token_str = str(access_token)
-                if BlacklistedAccessToken.objects.filter(token=token_str).exists():
-                    # ❌ Access token is already blacklisted
-                    UserActivityLog.objects.create(
-                        user=user,
-                        action="logout",
-                        status="failed",
-                        timestamp=now(),
-                        ip_address=ip_address,
-                        user_agent=user_agent,
-                        additional_info={"message": "Access token is already blacklisted."},
-                    )
-                    return Response({"error": "Access token is already blacklisted."}, status=status.HTTP_400_BAD_REQUEST)
-                
+        # ✅ Blacklist Access Token (custom method)
+        if access_token:
+            token_str = str(access_token)
+            # Avoid duplicate entries
+            if not BlacklistedAccessToken.objects.filter(token=token_str).exists():
                 BlacklistedAccessToken.objects.create(token=token_str)
-                cache.set(f"blacklisted_{token_str}", True, timeout=3600)  # ✅ Remove from cache immediately
-            
+
+            # ✅ Remove from cache immediately
+            cache.set(f"blacklisted_{token_str}", True, timeout=3600)
+
             # ✅ Log the successful logout in UserActivityLog
             UserActivityLog.objects.create(
                 user=user,
@@ -196,18 +166,9 @@ class LogoutAPI(APIView):
                 user_agent=user_agent,
                 additional_info={"message": "successfully logged out"},
             )
-
             return Response({"message": "Logged out successfully!"}, status=status.HTTP_205_RESET_CONTENT)
 
-        except Exception as e:
-            # ❌ Unexpected error occurred
-            UserActivityLog.objects.create(
-                user=user,
-                action="logout",
-                status="failed",
-                timestamp=now(),
-                ip_address=ip_address,
-                user_agent=user_agent,
-                additional_info={"error": f"An unexpected error occurred: {str(e)}"}, 
-            )
-            return Response({"error": f"An unexpected error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response({"error": "Access token is required"}, status=status.HTTP_400_BAD_REQUEST)
+    
+
