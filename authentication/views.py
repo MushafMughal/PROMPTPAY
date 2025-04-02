@@ -16,6 +16,7 @@ from django.core.cache import cache
 from django.contrib.auth import get_user_model
 import json
 from .utils import CustomAPIException
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 
 
 # ✅ Register a new user
@@ -24,8 +25,9 @@ class RegisterUserView(APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": "User registered successfully!"}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            raise CustomAPIException(True, None, "User registered successfully!", 201)
+        
+        raise CustomAPIException(False, None, serializer.errors, 400)
 
 
 # ✅ List all users (Admin or authorized users can access)
@@ -33,12 +35,14 @@ class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
-# ✅ Retrieve, Update, and Delete a user by CNIC
-class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    lookup_field = 'cnic'  # Use CNIC as lookup field
+# @api_view(['GET'])
+# @authentication_classes([JWTAuthentication])
+# @permission_classes([IsAuthenticated])
+# def userdetails(request):
+#     """Retrieve user details"""
+#     user = request.user
+#     serializer = UserSerializer(user)
+#     return Response(serializer.data, status=200)
 
 
 # ✅ Login user and get token and trigger Custom signal
@@ -64,7 +68,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             user = User.objects.filter(username=username_or_email_or_cnic).first()
 
         if not user:
-            raise CustomAPIException("User not found", 404)
+            raise CustomAPIException(False, None, "This User doesn't exist!", 404)
             
         auth_instance, created = Authentication.objects.get_or_create(user=user)
 
@@ -79,7 +83,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
                 status="failed",
                 additional_info=json.dumps({"reason": "Account is locked"}),
             )
-            raise CustomAPIException("Your account is locked. Try again later.", 403)
+            # raise CustomAPIException("Your account is locked. Try again later.", 403)
+            raise CustomAPIException(False, None, "Your account is locked. Try again later.", 403)
 
         if not user.check_password(password):
             # ❌ Failed login attempt -> LOG IT
@@ -91,15 +96,14 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
                 ip_address=ip_address,
                 status="failed",
                 user_agent=user_agent,
-                additional_info=json.dumps({"reason": "Invalid credentials"})
+                additional_info=json.dumps({"reason": "Invalid Password"})
             )
             auth_instance.failed_attempts += 1
             if auth_instance.failed_attempts >= 5:
                 auth_instance.is_locked = True
                 auth_instance.locked_at = now()  # Set lock time
             auth_instance.save()
-            # raise AuthenticationFailed("Invalid credentials")
-            raise CustomAPIException("Invalid Password", 401)
+            raise CustomAPIException(False, None, "Invalid Password", 401)
 
         # ✅ Fire the custom signal manually after successful authentication
         custom_user_logged_in.send(sender=self.__class__, request=self.context['request'], user=user)
@@ -120,7 +124,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             additional_info=json.dumps({"status": "Successful login"})
         )
         
-        return data
+        raise CustomAPIException(True, data, "Login successful!", 200)
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -166,9 +170,11 @@ class LogoutAPI(APIView):
                 user_agent=user_agent,
                 additional_info={"message": "successfully logged out"},
             )
-            return Response({"message": "Logged out successfully!"}, status=status.HTTP_205_RESET_CONTENT)
+            # return Response({"message": "Logged out successfully!"}, status=status.HTTP_205_RESET_CONTENT)
+            raise CustomAPIException(True, None, "Logged out successfully!", 205)
 
         else:
-            return Response({"error": "Access token is required"}, status=status.HTTP_400_BAD_REQUEST)
+            # return Response({"error": "Access token is required"}, status=status.HTTP_400_BAD_REQUEST)
+            raise CustomAPIException(False, None, "Access token is required", 400)
     
 

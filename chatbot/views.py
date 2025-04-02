@@ -21,6 +21,38 @@ class ExtractDataAPI(APIView):
             return Response({"data": extracted_data}, status=200)
         except json.JSONDecodeError:
             return Response({"error": "Invalid JSON format"}, status=400)
+        
+
+class CheckMissingInfoAPI(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """API to check missing fields in the extracted data (JWT Protected)"""
+        try:
+            data = request.data
+            missing_info = check_missing_info(data)
+            return Response(missing_info, status=200)
+        except json.JSONDecodeError:
+            return Response({"error": "Invalid JSON format"}, status=400)
+
+class UpdateDataAPI(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """API to update extracted JSON data based on user input (JWT Protected)"""
+        try:
+            data = request.data
+            existing_data = data.get("data", {})
+            user_response = data.get("user_response", "")
+            missing_keys_message = data.get("missing_keys_message", "")
+
+            updated_data = update_json_data(existing_data, user_response, missing_keys_message)
+            return Response({"data": updated_data}, status=200)
+        except json.JSONDecodeError:
+            return Response({"error": "Invalid JSON format"}, status=400)
+        
 
 # @csrf_exempt
 # def extract_data_api(request):
@@ -36,34 +68,34 @@ class ExtractDataAPI(APIView):
     
 #     return JsonResponse({"error": "Only POST requests allowed"}, status=405)
 
-@csrf_exempt
-def check_missing_info_api(request):
-    """API to check missing fields in the extracted data"""
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-            missing_info = check_missing_info(data)
-            return JsonResponse(missing_info, status=200)
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON format"}, status=400)
+# @csrf_exempt
+# def check_missing_info_api(request):
+#     """API to check missing fields in the extracted data"""
+#     if request.method == "POST":
+#         try:
+#             data = json.loads(request.body)
+#             missing_info = check_missing_info(data)
+#             return JsonResponse(missing_info, status=200)
+#         except json.JSONDecodeError:
+#             return JsonResponse({"error": "Invalid JSON format"}, status=400)
     
-    return JsonResponse({"error": "Only POST requests allowed"}, status=405)
+#     return JsonResponse({"error": "Only POST requests allowed"}, status=405)
 
-@csrf_exempt
-def update_data_api(request):
-    """API to update extracted JSON data based on user input"""
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-            existing_data = data.get("data", {})
-            user_response = data.get("user_response", "")
-            missing_keys_message = data.get("missing_keys_message", "")
+# @csrf_exempt
+# def update_data_api(request):
+#     """API to update extracted JSON data based on user input"""
+#     if request.method == "POST":
+#         try:
+#             data = json.loads(request.body)
+#             existing_data = data.get("data", {})
+#             user_response = data.get("user_response", "")
+#             missing_keys_message = data.get("missing_keys_message", "")
 
-            updated_data = update_json_data(existing_data, user_response, missing_keys_message)
-            return JsonResponse({"data": updated_data}, status=200)
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON format"}, status=400)
+#             updated_data = update_json_data(existing_data, user_response, missing_keys_message)
+#             return JsonResponse({"data": updated_data}, status=200)
+#         except json.JSONDecodeError:
+#             return JsonResponse({"error": "Invalid JSON format"}, status=400)
     
-    return JsonResponse({"error": "Only POST requests allowed"}, status=405)
+#     return JsonResponse({"error": "Only POST requests allowed"}, status=405)
 
 
