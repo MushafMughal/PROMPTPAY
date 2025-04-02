@@ -83,7 +83,7 @@ class Card(models.Model):
 class Payee(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="payees")  # User can have multiple payees
     payee_name = models.CharField(max_length=255)
-    account_number = models.CharField(max_length=20, unique=True)
+    account_number = models.CharField(max_length=20)
     bank_name = models.CharField(max_length=255)
     added_at = models.DateTimeField(auto_now_add=True)  # Timestamp for when payee was added
 

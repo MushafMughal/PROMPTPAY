@@ -2,20 +2,16 @@ from langchain_ollama import ChatOllama
 from langchain_core.messages import AIMessage
 import json
 
+#  model="qwen2.5:7b-instruct-q6_K",
+#  model="llama3.2:3b-instruct-q8_0",
+#  model= "gemma3:12b",
+
 llm_ner = ChatOllama(
-    # model="qwen2.5:3b-instruct-q6_K",
-    model="qwen2.5:3b-instruct-q5_K_M",
-    #model="llama3.2",
+    model="qwen2.5:14b",
     temperature=0,
+    base_url="http://127.0.0.1:11434"
 )
-# llm_updater = ChatOllama(
-#     model="llama3.2",
-#     temperature=0,
-# )
-# llm_retriever = ChatOllama(
-#     model="llama3.2",
-#     temperature=0,
-# )
+
 
 ner_prompt_Eng = f"""
 Your task is strictly to extract the following entities from the provided prompt: `account_number`, `amount`, `bank_name`, and `recipient_name`. 
@@ -158,10 +154,20 @@ def extract_entities(user_input):
     """Extracts structured data from user input using the NER model."""
     messages = [("system", ner_prompt_Eng), ("human", user_input)]
     response = llm_ner.invoke(messages)
-    try:
-        return json.loads(response.content)
-    except json.JSONDecodeError:
-        return {"error": "Failed to parse NER response"}
+    return response.content
+
+    # try:
+    #     # Extract the JSON content from the response
+    #     json_content = response.content.split('```json\n')[1].split('\n```')[0]
+    #     return json.loads(json_content)
+    # except (IndexError, json.JSONDecodeError):
+    #     # Handle the case where JSON extraction fails
+    #     return {"error": "Failed to extract JSON from NER response"}
+    
+    # try:
+    #     return json.loads(response.content)
+    # except json.JSONDecodeError:
+    #     return {"error": "Failed to parse NER response"}
 
 def check_missing_info(data):
     """Checks which fields are missing and returns a response for the API with security validation."""

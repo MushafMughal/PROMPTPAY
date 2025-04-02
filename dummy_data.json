@@ -2,7 +2,7 @@
     {
         "model": "core_banking.transaction",
         "fields": {
-            "user": 5,
+            "user": 2,
             "transaction_id": "tx2001xyz1234",
             "transaction_type": "credit",
             "amount": "1500.00",
@@ -21,7 +21,7 @@
     {
         "model": "core_banking.transaction",
         "fields": {
-            "user": 5,
+            "user": 2,
             "transaction_id": "tx2002xyz5678",
             "transaction_type": "debit",
             "amount": "500.00",
@@ -40,7 +40,7 @@
     {
         "model": "core_banking.transaction",
         "fields": {
-            "user": 5,
+            "user": 2,
             "transaction_id": "tx2003xyz9101",
             "transaction_type": "bill_payment",
             "amount": "2899.00",
@@ -61,7 +61,7 @@
     {
         "model": "core_banking.transaction",
         "fields": {
-            "user": 5,
+            "user": 2,
             "transaction_id": "tx2005xyz1415",
             "transaction_type": "credit",
             "amount": "6200.00",

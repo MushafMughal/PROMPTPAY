@@ -5,6 +5,13 @@ from rest_framework import status
 from rest_framework.exceptions import APIException
 
 class CustomAPIException(APIException):
-    def __init__(self, message, status_code):
+    def __init__(self, status, data, message, status_code):
         self.status_code = status_code
-        self.detail = {"error": message}
+        self.detail = {  # ✅ This ensures Django treats it as a dictionary response
+            "status": status,
+            "data": data,
+            "message": message
+        }
+    
+    def __str__(self):
+        return str(self.detail)  # ✅ Prevents Django from turning it into a string

@@ -3,6 +3,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 from django.utils.timezone import now
 from django.utils.timezone import now, timedelta
+from django.core.exceptions import ValidationError
 
 
 # New Model for Blacklisted Access Token
@@ -16,18 +17,18 @@ class BlacklistedAccessToken(models.Model):
 
 # New Model for User
 class User(AbstractUser):
-    name = models.CharField(max_length=255)  # Full Name
-    username = models.CharField(max_length=100, unique=True)  # Username (separate from name)
-    cnic = models.CharField(max_length=15, unique=True)  # CNIC as Unique Field
-    email = models.EmailField(max_length=50, unique=True)
-    phone_number = models.CharField(max_length=15, unique=True)
-    dob = models.DateField(null=True, blank=True)  # Date of Birth
-    password = models.CharField(max_length=256)  # Will be hashed
+    name = models.CharField(max_length=255)
+    username = models.CharField(max_length=100, unique=True)
+    cnic = models.CharField(max_length=15)
+    email = models.EmailField(max_length=50, unique=False)
+    phone_number = models.CharField(max_length=15, unique=False)
+    dob = models.DateField(null=True, blank=True)
+    password = models.CharField(max_length=256)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         if not self.password.startswith('pbkdf2_sha256$'):
-            self.password = make_password(self.password)  # Hash the password
+            self.password = make_password(self.password)
         super().save(*args, **kwargs)
 
     def __str__(self):

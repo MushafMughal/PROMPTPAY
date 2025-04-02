@@ -32,22 +32,26 @@ class PayeeSerializer(serializers.ModelSerializer):
         """Ensure account number is exactly 14 digits and exists in the bank"""
         
         if not value.isdigit():
-            raise CustomAPIException("Account number must contain only digits.", status_code=400)
+            raise CustomAPIException(False, None, "Account number must contain only digits.", 400)
         if len(value) != 14:
-            raise CustomAPIException("Account number must be exactly 14 digits.", status_code=400)
+            raise CustomAPIException(False, None, "Account number must be exactly 14 digits.", 400)
 
         # ✅ Check if account exists in the bank system
         from .models import BankAccount  # Import to avoid circular import issues
 
         if not BankAccount.objects.filter(account_number=value).exists():
-            raise CustomAPIException("Account number does not exist in the bank system.", status_code=400) 
+            raise CustomAPIException(False, None, "Account number does not exist in the bank system.", 400)
         
         # ❌ Prevent users from adding themselves as a payee
         user = self.context["request"].user  # ✅ Get the logged-in user
         user_bank_account = BankAccount.objects.filter(user=user).first()
         if user_bank_account and user_bank_account.account_number == value:
-            raise CustomAPIException("You cannot add yourself as a payee.", status_code=400)
-
+            raise CustomAPIException(False, None, "You cannot add yourself as a payee.", 400)
+        
+            # ✅ Ensure that the same payee is not added twice for the same user
+        if Payee.objects.filter(user=user, account_number=value).exists():
+            raise CustomAPIException(False, None, "You already have this payee added.", 400)
+    
         return value
         
 # Serializer for transaction list view (Screen 1)
