@@ -53,11 +53,9 @@ class UserSerializer(serializers.ModelSerializer):
     
     def validate_phone_number(self, value):
 
-        if len(value) != 11:
-            raise serializers.ValidationError("Phone number must be 11 digits.")
-
         if not re.match(r"^\+92\d{10}$", value):
             raise serializers.ValidationError("Phone number must be in the format +92xxxxxxxxx.")
+        
         return value
     
     def validate_dob(self, value):

@@ -3,8 +3,8 @@ from .views import *
 
 
 urlpatterns = [
-    path("extract/", ExtractDataAPI.as_view(), name="extract_data"),
+    path("router/", RouterAPI.as_view(), name="chat"),
+    path("transfer-money/", TransferAPI.as_view(), name="Transfer Money"),
     path("check-missing/", CheckMissingInfoAPI.as_view(), name="check_missing"),
     path("update/", UpdateDataAPI.as_view(), name="update_data"),
-    
 ]

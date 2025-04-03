@@ -6,10 +6,17 @@ import json
 #  model="llama3.2:3b-instruct-q8_0",
 #  model= "gemma3:12b",
 
-llm_ner = ChatOllama(
-    model="qwen2.5:14b",
+# llm = ChatOllama(
+#     model="qwen2.5:14b",
+#     temperature=0,
+#     base_url="http://127.0.0.1:11434"
+# )
+
+
+llm = ChatOllama(
+    model="qwen2.5:14b-instruct-q6_K",
     temperature=0,
-    base_url="http://127.0.0.1:11434"
+    base_url="http://192.168.18.86:11434"
 )
 
 
@@ -149,12 +156,139 @@ Missing Keys: ["amount", "account_number", "bank_name"]
 3. Output only the question in a single line.
 """
 
+router_prompt_Eng = prompt = f"""
+You are PromptPay Banking Assistant, a specialized AI that handles only specific banking-related queries. 
+Your task is to strictly follow these rules:
+
+1. Routing:
+- If the user query is related to money transfer output exactly: "transfer money"
+- If the user query is about adding a payee, output exactly: "add payee"
+- If the user query is about paying a bill, output exactly: "bill payment"
+
+2. Greetings:
+- If the user says hello/hi/greetings without specific banking requests, respond with:
+  "Hello! I'm PromptPay Banking Assistant. I can help you with:
+  - Transferring money
+  - Adding payees
+  - Bill payments"
+
+3. **Out-of-Scope Queries:**  
+   - For **any non-banking requests** (e.g., jokes, weather, general chat), respond **exactly**:  
+     I only assist with banking transactions. Please ask about transfer money, payees, or bill payments.
+
+Examples:
+User: "I need help with my money transfer" → "transfer money"
+User: "I want to add a new payee" → "add payee"
+User: "Pay my electricity bill" → "bill payment"
+User: "Hi there!" → (give greeting response above)
+User: "What's the weather?" → "I only assist with banking transactions. Please ask about transfer money, payees, or bill payments."
+User: "Tell me a joke" → "I only assist with banking transactions. Please ask about transfer money, payees, or bill payments."
+
+Now handle this query:
+"""
+
+confirmation_prompt_Eng = f"""
+You are a Transaction Confirmation Assistant for PromptPay Bank. Strictly follow these rules:
+
+1. **Initial Prompt** (when user_input is None/empty):
+- Generate a confirmation message using ALL these dynamic fields from data:
+  - amount (with PKR prefix)
+  - recipient_name
+  - bank_name
+  - account_number
+
+Example:
+   {{
+      "data": {{"account_number": "12421343JJ2334", "amount": 12000, "bank_name": "PromptPay", "recipient_name": "Ahsan Ali"}},
+      "user_input": null,
+      "confirmation_message": "Confirm transfer of PKR {{amount}} to {{recipient_name}} in {{bank_name}} {{account_number}}? (Reply 'YES', 'NO', or specify changes)"
+   }}
+
+2. **Handling Responses**:
+A) For POSITIVE responses (e.g. "yes", "confirm", "proceed"):
+  Example:
+   {{
+      "data": {{"account_number": "12421343JJ2334", "amount": 12000, "bank_name": "PromptPay", "recipient_name": "Ahsan Ali"}},
+      "user_input": null,
+      "confirmation_message": "Proceed".
+   }}
+
+B) For NEGATIVE responses (e.g. "no", "cancel"):
+  ExamplE:
+   {{
+      "data": {{"account_number": "12421343JJ2334", "amount": 12000, "bank_name": "PromptPay", "recipient_name": "Ahsan Ali"}},
+      "user_input": null,
+      "confirmation_message": "Cancelled".
+   }}
+
+C) For CHANGE requests (e.g. "make it 5000", "change name to Ali"):
+1. Update ALL mentioned fields in data
+2. Generate NEW confirmation with updated values:
+   {{
+      "data": {{"account_number": "12421343JJ2334", "amount": 5000, "bank_name": "PromptPay", "recipient_name": "Ahsan Ali"}},
+      "user_input": null,
+      "confirmation_message": "Updated: Transfer PKR "amount" to "recipient_name" in "bank_name" "account_number"? (Reply 'YES', 'NO', or specify changes)"
+   }}
+
+3. **Key Improvements**:
+- **Dynamic Field Injection**: Messages automatically adapt to current data values
+-  **Natural Language**: Messages sound like a real bank assistant
+- **Context Awareness**: Handles partial updates (e.g. if only amount changes)
+
+**STRICT OUTPUT REQUIREMENT**:
+- Always return the output in the Valid JSON format.
+- Do not include any explanations, comments, or additional text.
+
+
+Now perform on given data:
+"""
+
+def confirmation(data):
+      """Handles transaction confirmation and updates the data accordingly."""
+
+      user_input = f"""
+      Input data: {data}
+      """
+      messages = [
+         ("system", confirmation_prompt_Eng), 
+         ("human", user_input)
+      ]
+   
+      response = llm.invoke(messages)
+   
+      try:
+         return json.loads(response.content)
+      except json.JSONDecodeError:
+         return {"error": "Failed to parse confirmation response"}
+
+def router(user_input):
+
+    messages = [
+        ("system", router_prompt_Eng), 
+        ("human", user_input)
+        ]
+    response = llm.invoke(messages)
+
+    # if response.content in ["transfer money", "add payee", "bill payment"]:
+    #     return {"route": True, "message": response.content, "point"}
+
+    if response.content == "transfer money":
+        return {"message": response.content, "point": "transfer money"}
+    
+    elif response.content == "add payee":
+        return {"message": response.content, "point": "add payee"}
+    
+    elif response.content == "bill payment":
+        return {"message": response.content, "point": "bill payment"}
+    else:
+        return {"message": response.content, "point": None}
+
 
 def extract_entities(user_input):
     """Extracts structured data from user input using the NER model."""
     messages = [("system", ner_prompt_Eng), ("human", user_input)]
-    response = llm_ner.invoke(messages)
-    return response.content
+    response = llm.invoke(messages)
+   #  return response.content
 
     # try:
     #     # Extract the JSON content from the response
@@ -164,10 +298,11 @@ def extract_entities(user_input):
     #     # Handle the case where JSON extraction fails
     #     return {"error": "Failed to extract JSON from NER response"}
     
-    # try:
-    #     return json.loads(response.content)
-    # except json.JSONDecodeError:
-    #     return {"error": "Failed to parse NER response"}
+    try:
+        return {'data':json.loads(response.content)}
+    except json.JSONDecodeError:
+        return {"error": "Failed to parse NER response"}
+
 
 def check_missing_info(data):
     """Checks which fields are missing and returns a response for the API with security validation."""
@@ -175,7 +310,7 @@ def check_missing_info(data):
     # Ensure data is provided and is a dictionary
     if not isinstance(data, dict):
         return {"error": "Invalid input. Expected a JSON object."}
-    
+       
     # Extract "data" field safely
     data = data.get("data")
     
@@ -189,10 +324,10 @@ def check_missing_info(data):
     if missing_keys:
         missing_vals = f"Missing keys: {', '.join(missing_keys)}"
         messages = [("system", retriever_prompt_Eng), ("human", missing_vals)]
-        retriever = llm_ner.invoke(messages)
-        return {"missing_fields": missing_keys, "message": retriever.content}
+        retriever = llm.invoke(messages)
+        return {"data": data, "message": retriever.content}
     
-    return {"message": "All keys have valid values."}
+    return { "data":data, "message": "Completed" }
 
 
 def update_json_data(existing_data, user_response, missing_keys_message):
@@ -204,9 +339,9 @@ def update_json_data(existing_data, user_response, missing_keys_message):
     3. User: {user_response}
     """
     messages = [("system", updater_prompt_eng), ("human", user_input)]
-    updater = llm_ner.invoke(messages)
+    updater = llm.invoke(messages)
 
     try:
-        return json.loads(updater.content)
+        return {"data":json.loads(updater.content)}
     except json.JSONDecodeError:
         return {"error": "Failed to parse updater response"}
