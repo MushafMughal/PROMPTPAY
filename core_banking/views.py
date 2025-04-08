@@ -87,7 +87,9 @@ def add_payee(request):
         serializer.save(user=request.user)
         raise CustomAPIException(True, serializer.data, "Payee added successfully", 201)
 
-    raise CustomAPIException(False, None, serializer.errors, 400)
+    messages = [msg.rstrip('.') for messages in serializer.errors.values() for msg in messages]
+    error_messages = " and ".join(messages) + ("." if messages else "")
+    raise CustomAPIException(False, None, error_messages, 400)
 
 
 # Get user's transaction history (List View)
