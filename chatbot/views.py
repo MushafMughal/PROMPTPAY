@@ -6,6 +6,9 @@ from rest_framework.response import Response
 from django.http import JsonResponse
 import json
 from .utils import *
+from django.core.cache import cache
+from authentication.utils import *
+from authentication.models import *
 
 
 class RouterAPI(APIView):
@@ -41,6 +44,10 @@ class TransferAPI(APIView):
     def post(self, request):
         """API to extract structured data from user input (JWT Protected)"""
         try:
+
+            user_id = request.user.id
+            user = User.objects.get(id=user_id)
+            user_email = user.email
             data = request.data  # DRF automatically parses JSON
             input_data = data.get("data", "")
             user_input = data.get("user_input", "")
@@ -59,8 +66,19 @@ class TransferAPI(APIView):
             if data.get("route") == "complete":
                     respone = confirmation({"data": input_data, "user_input":user_input})
 
-                    if respone.get("confirmation_message") == "Proceed":
-                        pass
+                    if respone.get("confirmation_message") in ["Proceed.", "Proceed"]:
+
+                        otp = generate_otp()
+                        cache.set(f"otp_{user_id}", otp, timeout=300)  # 5 min expiry
+                        send_user_registration_emails(user_email, otp)
+
+                        return Response({
+                            "status": True,
+                            "data": None,
+                            "message": "OTP sent. Please verify.",
+                            "route": "otp_verification"
+                        }, status=200)
+
                     else:
                         return Response({"status": True, "data": respone.get("data"), "message": respone.get("confirmation_message"), "route":"complete"}, status=200)
 
@@ -68,7 +86,6 @@ class TransferAPI(APIView):
             return Response({"status": False, "data": None, "message": "Invalid JSON format", "route": None }, status=400)
         except Exception as e: 
             return Response({"status": False, "data": None, "message": str(e), "route":None}, status=500)
-
 
 
 class ExtractDataAPI(APIView):
@@ -116,49 +133,3 @@ class UpdateDataAPI(APIView):
         except json.JSONDecodeError:
             return Response({"error": "Invalid JSON format"}, status=400)
         
-
-# @csrf_exempt
-# def extract_data_api(request):
-#     """API to extract structured data from user input"""
-#     if request.method == "POST":
-#         try:
-#             data = json.loads(request.body)
-#             user_input = data.get("user_input", "")
-#             extracted_data = extract_entities(user_input)
-#             return JsonResponse({"data": extracted_data}, status=200)
-#         except json.JSONDecodeError:
-#             return JsonResponse({"error": "Invalid JSON format"}, status=400)
-    
-#     return JsonResponse({"error": "Only POST requests allowed"}, status=405)
-
-# @csrf_exempt
-# def check_missing_info_api(request):
-#     """API to check missing fields in the extracted data"""
-#     if request.method == "POST":
-#         try:
-#             data = json.loads(request.body)
-#             missing_info = check_missing_info(data)
-#             return JsonResponse(missing_info, status=200)
-#         except json.JSONDecodeError:
-#             return JsonResponse({"error": "Invalid JSON format"}, status=400)
-    
-#     return JsonResponse({"error": "Only POST requests allowed"}, status=405)
-
-# @csrf_exempt
-# def update_data_api(request):
-#     """API to update extracted JSON data based on user input"""
-#     if request.method == "POST":
-#         try:
-#             data = json.loads(request.body)
-#             existing_data = data.get("data", {})
-#             user_response = data.get("user_response", "")
-#             missing_keys_message = data.get("missing_keys_message", "")
-
-#             updated_data = update_json_data(existing_data, user_response, missing_keys_message)
-#             return JsonResponse({"data": updated_data}, status=200)
-#         except json.JSONDecodeError:
-#             return JsonResponse({"error": "Invalid JSON format"}, status=400)
-    
-#     return JsonResponse({"error": "Only POST requests allowed"}, status=405)
-
-
