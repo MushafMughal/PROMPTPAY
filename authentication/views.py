@@ -15,8 +15,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.core.cache import cache
 from django.contrib.auth import get_user_model
 import json
-from .utils import CustomAPIException
+from .utils import *
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from authentication.utils import generate_otp
 
 
 # ✅ Register a new user
@@ -27,7 +28,10 @@ class RegisterUserView(APIView):
             serializer.save()
             raise CustomAPIException(True, None, "User registered successfully!", 201)
         
-        raise CustomAPIException(False, None, serializer.errors, 400)
+        messages = [msg.rstrip('.') for messages in serializer.errors.values() for msg in messages]
+        error_messages = " and ".join(messages) + ("." if messages else "")
+
+        raise CustomAPIException(False, None, error_messages, 400)
 
 
 # ✅ List all users (Admin or authorized users can access)
@@ -178,3 +182,58 @@ class LogoutAPI(APIView):
             raise CustomAPIException(False, None, "Access token is required", 400)
     
 
+class VerifyOTPAPI(APIView):
+
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """API to verify OTP (JWT Protected)"""
+        try:
+
+            user_id = request.user.id  # Get user ID from JWT
+            data = request.data
+            user_otp = data.get("otp")
+
+            # Retrieve OTP from cache
+            stored_otp = cache.get(f"otp_{user_id}")
+
+            if stored_otp and stored_otp == user_otp:
+                cache.delete(f"otp_{user_id}")  # Delete OTP from cache after successful verification
+                return Response({"status": True, "data": None, "message": "OTP verified.", "route": "success"}, status=200)
+            
+            elif stored_otp and stored_otp != user_otp:
+                return Response({"status": False, "data": None, "message": "Wrong OTP. Please try again.", "route": "unsuccess"}, status=400)
+            
+            else:
+                return Response({"status": False, "data": None, "message": "Invalid OTP", "route": "unsuccess"}, status=400)
+                
+        except Exception as e:
+            return Response({"status": False, "data": None, "message": f"Error: {str(e)}", "route": "unsuccess"}, status=500)
+
+
+class ResendOTPAPI(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """API to resend OTP (JWT Protected)"""
+        try:
+
+            user_id = request.user.id
+            user = User.objects.get(id=user_id)
+            user_email = user.email
+
+            new_otp = generate_otp()
+            cache.set(f"otp_{user_id}", new_otp, timeout=300)  # 5 min expiry
+            send_user_registration_emails(user_email, new_otp)
+        
+            return Response({
+                            "status": True,
+                            "data": None,
+                            "message": "OTP has been resent.",
+                            "route": "otp_verification"
+                        }, status=200)
+
+        except Exception as e:
+            return Response({"status": False, "message": f"Error: {str(e)}"}, status=500)
