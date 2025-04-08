@@ -2,6 +2,7 @@ from langchain_ollama import ChatOllama
 from langchain_core.messages import AIMessage
 import json
 
+
 #  model="qwen2.5:7b-instruct-q6_K",
 #  model="llama3.2:3b-instruct-q8_0",
 #  model= "gemma3:12b",
@@ -16,7 +17,8 @@ import json
 llm = ChatOllama(
     model="qwen2.5:14b-instruct-q6_K",
     temperature=0,
-    base_url="http://192.168.18.86:11434"
+    # base_url="http://192.168.18.86:11434"
+    base_url="https://xdzgbd6f-11434.inc1.devtunnels.ms/"
 )
 
 
