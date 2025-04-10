@@ -1,23 +1,16 @@
 from langchain_ollama import ChatOllama
 from langchain_core.messages import AIMessage
 import json
-
-
-#  model="qwen2.5:7b-instruct-q6_K",
-#  model="llama3.2:3b-instruct-q8_0",
-#  model= "gemma3:12b",
-
-# llm = ChatOllama(
-#     model="qwen2.5:14b",
-#     temperature=0,
-#     base_url="http://127.0.0.1:11434"
-# )
+import random
+from core_banking.models import *
+from django.core.exceptions import ObjectDoesNotExist
 
 
 llm = ChatOllama(
     model="qwen2.5:14b-instruct-q6_K",
+   # model= "qwen2.5:32b-instruct-q4_K_M",
     temperature=0,
-    # base_url="http://192.168.18.86:11434"
+   #  base_url="http://192.168.18.87:11434"
     base_url="https://xdzgbd6f-11434.inc1.devtunnels.ms/"
 )
 
@@ -125,37 +118,47 @@ ONLY output the updated dictionary. Perform the update now:
 """
 
 retriever_prompt_Eng = f"""
-You are a professional banking assistant. Your task is to identify and ask the user for any missing values from the provided list so that the transaction can proceed.
+You are a professional banking assistant. Your task is to review user-submitted input for a transaction and generate a clear, polite message that helps the user correct and complete their request.
 
-**Guidelines**:
-1. **Identify Missing Keys**: Review the list and identify keys that are either missing or have a `null` value. These are the values you need to ask the user for.
-2. **Combine Questions for Efficiency**: When multiple keys are missing, combine them into a single concise question. For example, if both `bank_name` and `account_number` are missing, ask for both in one sentence.
-3. **Use Professional Language**: Ensure your question is clear, polite, and professional.
+You will receive a two list with the following names:
+- "Missing Keys": a list of field names that were not provided (e.g., "amount", "account_number").
+- "Error Keys": a list of error messages for fields that were provided but are invalid (e.g., "This account number doesn't exist", "Insufficeint balance").
+
+
+**Your response should**:
+1. **Combine Missing and Error Information**: Create a single, natural-sounding message that asks the user to provide any missing values and also points out any incorrect or invalid ones.
+2. **Use Professional Language**: Always be polite, clear, and professional in tone.
+3. **Avoid Bullet Points or Lists**: Return a single, well-structured sentence or paragraph.
+4. **Be Context-Aware**: The message should sound human — avoid templates or robotic phrasing.
 
 **Examples**:
 
 **Input**:
-Missing Keys: ["bank_name", "account_number"]
+"Missing Keys": ["bank_name", "amount"]
+"Error Keys": ["This account number doesn't exist"]
 
 **Output**:
-- Could you please provide the name of the bank and the account number to proceed with the transaction?
+- Could you please provide the name of the bank and the amount to proceed with the transaction? Also, the account number you entered doesn't appear to exist — could you double-check it?
 
 **Input**:
-Missing Keys: ["recipient_name"]
+"Missing Keys": ["recipient_name"]
+"Error Keys": []
 
 **Output**:
 - Could you please provide the name of the person or entity receiving the transaction?
 
 **Input**:
-Missing Keys: ["amount", "account_number", "bank_name"]
+"Missing Keys": []
+"Error Keys": ["Insufficient balance in the account"]
 
 **Output**:
-- Could you please specify the transaction amount, the account number, and the name of the bank to proceed with the transaction?
+- It seems the amount entered exceeds the available balance. Could you please check and provide a valid amount?
 
 **Instructions**:
-1. Identify all the missing keys in the list.
-2. Generate a single, polite question that asks for all the missing values together.
-3. Output only the question in a single line.
+1. Combine all missing and error messages into a single polite and professional message.
+2. Ask the user to provide valid values for any missing or incorrect fields.
+3. Be natural and flexible with sentence structure.
+4. Return only the final message, nothing else.
 """
 
 router_prompt_Eng = prompt = f"""
@@ -240,6 +243,7 @@ C) For CHANGE requests (e.g. "make it 5000", "change name to Ali"):
 **STRICT OUTPUT REQUIREMENT**:
 - Always return the output in the Valid JSON format.
 - Do not include any explanations, comments, or additional text.
+- You must return data in the json.
 
 
 Now perform on given data:
@@ -263,6 +267,7 @@ def confirmation(data):
       except json.JSONDecodeError:
          return {"error": "Failed to parse confirmation response"}
 
+
 def router(user_input):
 
     messages = [
@@ -270,9 +275,6 @@ def router(user_input):
         ("human", user_input)
         ]
     response = llm.invoke(messages)
-
-    # if response.content in ["transfer money", "add payee", "bill payment"]:
-    #     return {"route": True, "message": response.content, "point"}
 
     if response.content == "transfer money":
         return {"message": response.content, "point": "transfer money"}
@@ -290,31 +292,25 @@ def extract_entities(user_input):
     """Extracts structured data from user input using the NER model."""
     messages = [("system", ner_prompt_Eng), ("human", user_input)]
     response = llm.invoke(messages)
-   #  return response.content
-
-    # try:
-    #     # Extract the JSON content from the response
-    #     json_content = response.content.split('```json\n')[1].split('\n```')[0]
-    #     return json.loads(json_content)
-    # except (IndexError, json.JSONDecodeError):
-    #     # Handle the case where JSON extraction fails
-    #     return {"error": "Failed to extract JSON from NER response"}
-    
+   
     try:
+      #   response.content.split('```json\n')[1].split('\n```')[0]
         return {'data':json.loads(response.content)}
     except json.JSONDecodeError:
         return {"error": "Failed to parse NER response"}
 
 
-def check_missing_info(data):
+def check_missing_info(data1):
     """Checks which fields are missing and returns a response for the API with security validation."""
     
     # Ensure data is provided and is a dictionary
-    if not isinstance(data, dict):
+    if not isinstance(data1, dict):
         return {"error": "Invalid input. Expected a JSON object."}
        
     # Extract "data" field safely
-    data = data.get("data")
+    data = data1.get("data")
+    error = data1.get("error")
+    meta_data = data1.get("meta_data")
     
     # Ensure "data" exists and is a dictionary
     if not isinstance(data, dict) or not data:
@@ -322,17 +318,17 @@ def check_missing_info(data):
 
     # Check for missing or empty fields
     missing_keys = [key for key, value in data.items() if value in [None, ""]]
-
+    
     if missing_keys:
-        missing_vals = f"Missing keys: {', '.join(missing_keys)}"
-        messages = [("system", retriever_prompt_Eng), ("human", missing_vals)]
-        retriever = llm.invoke(messages)
-        return {"data": data, "message": retriever.content}
+      detail = f"Missing keys: {', '.join(missing_keys)} \nError keys: {error}"
+      messages = [("system", retriever_prompt_Eng), ("human", detail)]
+      retriever = llm.invoke(messages)
+      return {"data": data, "message": retriever.content, "error": error, "meta_data": meta_data}
     
     return { "data":data, "message": "Completed" }
 
 
-def update_json_data(existing_data, user_response, missing_keys_message):
+def update_json_data(existing_data, user_response, missing_keys_message,user_id):
     """Updates JSON data using the Updater LLM model."""
     user_input = f"""
     Inputs:
@@ -344,6 +340,25 @@ def update_json_data(existing_data, user_response, missing_keys_message):
     updater = llm.invoke(messages)
 
     try:
-        return {"data":json.loads(updater.content)}
+        
+        data = json.loads(updater.content)
+
+        error_messages = []
+
+        # 🔍 Check if account_number exists
+        account_number = data.get("account_number")
+        if account_number is not None:
+            cleaned_account_number = account_number.replace(" ", "")
+            if not BankAccount.objects.filter(account_number=cleaned_account_number).exists():
+                error_messages.append("Account number does not exist in the bank system.")
+
+        # 💸 Check if amount is within user balance
+        amount = data.get("amount")
+        if amount is not None:
+               user_bank = BankAccount.objects.get(user=user_id)
+               if float(amount) > float(user_bank.balance):
+                  error_messages.append("Insufficient balance for this transaction.")
+
+        return {"data":data, "error": [], "meta_data": []}
     except json.JSONDecodeError:
         return {"error": "Failed to parse updater response"}
