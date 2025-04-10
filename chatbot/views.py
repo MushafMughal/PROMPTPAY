@@ -54,19 +54,20 @@ class TransferAPI(APIView):
             message = data.get("message", "")
 
             if data.get("route") == "transfer money":
-                respone =  check_missing_info(update_json_data(input_data, user_input, message))
+                respone =  check_missing_info(update_json_data(input_data, user_input, message,user_id))
                 
                 if respone.get("message") == "Completed":
                     respone = confirmation({"data": respone.get("data"), "user_input":None})
                     return Response({"status": True, "data": respone.get("data"), "message": respone.get("confirmation_message"), "route":"complete"}, status=200)
                
                 else:
-                    return Response({"status": True, "data": respone.get("data"), "message": respone.get("message"), "route":"transfer money"}, status=200)
+                    return Response({"status": True, "data": respone.get("data"), "message": respone.get("message"), "error": respone.get("error"), "meta_data": respone.get("meta_data"), "route":"transfer money"}, status=200)
                 
             if data.get("route") == "complete":
                     respone = confirmation({"data": input_data, "user_input":user_input})
 
                     if respone.get("confirmation_message") in ["Proceed.", "Proceed"]:
+
 
                         otp = generate_otp()
                         cache.set(f"otp_{user_id}", otp, timeout=300)  # 5 min expiry
@@ -75,9 +76,13 @@ class TransferAPI(APIView):
                         return Response({
                             "status": True,
                             "data": None,
-                            "message": "OTP sent. Please verify.",
+                            "message": "OTP sent. Please Input otp.",
                             "route": "otp_verification"
                         }, status=200)
+                    
+                    elif respone.get("confirmation_message") in ["Cancelled", "Cancelled."]:
+                        
+                        return Response({"status": True, "data": None, "message": "Transaction cancelled.", "route":None}, status=200)
 
                     else:
                         return Response({"status": True, "data": respone.get("data"), "message": respone.get("confirmation_message"), "route":"complete"}, status=200)
@@ -88,48 +93,48 @@ class TransferAPI(APIView):
             return Response({"status": False, "data": None, "message": str(e), "route":None}, status=500)
 
 
-class ExtractDataAPI(APIView):
-    authentication_classes = [JWTAuthentication]  # ✅ Now this works
-    permission_classes = [IsAuthenticated]
+# class ExtractDataAPI(APIView):
+#     authentication_classes = [JWTAuthentication]  # ✅ Now this works
+#     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
-        """API to extract structured data from user input (JWT Protected)"""
-        try:
-            data = request.data  # DRF automatically parses JSON
-            user_input = data.get("user_input", "")
-            extracted_data = extract_entities(user_input)
-            return Response({"data": extracted_data}, status=200)
-        except json.JSONDecodeError:
-            return Response({"error": "Invalid JSON format"}, status=400)
+#     def post(self, request):
+#         """API to extract structured data from user input (JWT Protected)"""
+#         try:
+#             data = request.data  # DRF automatically parses JSON
+#             user_input = data.get("user_input", "")
+#             extracted_data = extract_entities(user_input)
+#             return Response({"data": extracted_data}, status=200)
+#         except json.JSONDecodeError:
+#             return Response({"error": "Invalid JSON format"}, status=400)
         
 
-class CheckMissingInfoAPI(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+# class CheckMissingInfoAPI(APIView):
+#     authentication_classes = [JWTAuthentication]
+#     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
-        """API to check missing fields in the extracted data (JWT Protected)"""
-        try:
-            data = request.data
-            missing_info = check_missing_info(data)
-            return Response(missing_info, status=200)
-        except json.JSONDecodeError:
-            return Response({"error": "Invalid JSON format"}, status=400)
+#     def post(self, request):
+#         """API to check missing fields in the extracted data (JWT Protected)"""
+#         try:
+#             data = request.data
+#             missing_info = check_missing_info(data)
+#             return Response(missing_info, status=200)
+#         except json.JSONDecodeError:
+#             return Response({"error": "Invalid JSON format"}, status=400)
 
-class UpdateDataAPI(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+# class UpdateDataAPI(APIView):
+#     authentication_classes = [JWTAuthentication]
+#     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
-        """API to update extracted JSON data based on user input (JWT Protected)"""
-        try:
-            data = request.data
-            existing_data = data.get("data", {})
-            user_response = data.get("user_response", "")
-            missing_keys_message = data.get("missing_keys_message", "")
+#     def post(self, request):
+#         """API to update extracted JSON data based on user input (JWT Protected)"""
+#         try:
+#             data = request.data
+#             existing_data = data.get("data", {})
+#             user_response = data.get("user_response", "")
+#             missing_keys_message = data.get("missing_keys_message", "")
 
-            updated_data = update_json_data(existing_data, user_response, missing_keys_message)
-            return Response({"data": updated_data}, status=200)
-        except json.JSONDecodeError:
-            return Response({"error": "Invalid JSON format"}, status=400)
+#             updated_data = update_json_data(existing_data, user_response, missing_keys_message)
+#             return Response({"data": updated_data}, status=200)
+#         except json.JSONDecodeError:
+#             return Response({"error": "Invalid JSON format"}, status=400)
         
