@@ -9,6 +9,9 @@ from .utils import *
 from django.core.cache import cache
 from authentication.utils import *
 from authentication.models import *
+from core_banking.models import *
+from core_banking.utils import *
+from decimal import Decimal
 
 
 class RouterAPI(APIView):
@@ -24,12 +27,39 @@ class RouterAPI(APIView):
             
             if router_response.get("point") == "transfer money":
                 respone =  check_missing_info(extract_entities(user_input))
-                
-                return Response({"status": True, "data": respone.get("data"), "message": respone.get("message"), "route": router_response.get("point")}, status=200)
+                return Response({"status": True, "data": respone.get("data"), "message": respone.get("message"), "route": router_response.get("point"), "next": router_response.get("point")}, status=200)
 
+            elif router_response.get("point") == "bill payment":
+
+                structure =  {"consumer_number": None, "bill_detail": None}
+                unpaid_bills = Bill.objects.filter(user=request.user, payment_status=False)
+                bills_data = [
+                    {
+                        "bill_type": bill.bill_type,
+                        "company": bill.company,
+                        "consumer_number": bill.consumer_number,
+                        "amount": float(bill.amount),  # ensure it's JSON-serializable
+                        "due_date": bill.due_date.isoformat(),  # format date as string
+                    }
+                    for bill in unpaid_bills
+                ]
+
+                if 'history' in request.data:
+                    history = data.get("history")
+                else:
+                    history = []
+
+                message_response = bill_status(structure, bills_data, user_input, history)
+
+                history.append({"user": user_input, "assistant": message_response.get("message")})
+                
+                if message_response.get("consumer_number") and message_response.get("bill_detail"):    
+                    return Response({"status": True, "data": {"consumer_number": message_response.get("consumer_number"), "bill_detail": message_response.get("bill_detail")}, "message": message_response.get("message"), "history": history, "route": "complete", "next": router_response.get("point")}, status=200)
+                else:
+                    return Response({"status": True, "data": {"consumer_number": message_response.get("consumer_number"), "bill_detail": message_response.get("bill_detail")}, "message": message_response.get("message"), "history": history, "route": "bill payment", "next": router_response.get("point")}, status=200)
+            
             else:
-                return Response({"status": True, "data": None, "message": router_response.get("message"), "route": None}, status=200)
-        
+                return Response({"status": True, "data": None, "message": router_response.get("message"), "route": router_response.get("point"), "next": "router"}, status=200)
 
         except json.JSONDecodeError:
             return Response({"status": False, "data": None, "message": "Invalid JSON format"}, status=400)
@@ -55,86 +85,232 @@ class TransferAPI(APIView):
 
             if data.get("route") == "transfer money":
                 respone =  check_missing_info(update_json_data(input_data, user_input, message,user_id))
+
                 
                 if respone.get("message") == "Completed":
                     respone = confirmation({"data": respone.get("data"), "user_input":None})
-                    return Response({"status": True, "data": respone.get("data"), "message": respone.get("confirmation_message"), "route":"complete"}, status=200)
-               
+                    return Response({"status": True, "data": respone.get("data"), "message": respone.get("confirmation_message"), "route":"complete", "next":"transfer money"}, status=200)
+
+                elif respone.get("message") == "Cancelled":
+                    return Response({"status": True, "data": None, "message": "Transaction cancelled.", "route":None, "next":"router"}, status=200)
+                               
                 else:
-                    return Response({"status": True, "data": respone.get("data"), "message": respone.get("message"), "error": respone.get("error"), "meta_data": respone.get("meta_data"), "route":"transfer money"}, status=200)
+                    return Response({"status": True, "data": respone.get("data"), "message": respone.get("message"), "route":"transfer money", "next":"transfer money"}, status=200)
                 
             if data.get("route") == "complete":
                     respone = confirmation({"data": input_data, "user_input":user_input})
 
                     if respone.get("confirmation_message") in ["Proceed.", "Proceed"]:
 
-
                         otp = generate_otp()
                         cache.set(f"otp_{user_id}", otp, timeout=300)  # 5 min expiry
-                        send_user_registration_emails(user_email, otp)
+                        send_user_registration_emails("mushafmughal12@gmail.com", otp)
 
                         return Response({
                             "status": True,
-                            "data": None,
-                            "message": "OTP sent. Please Input otp.",
-                            "route": "otp_verification"
+                            "data": respone.get("data"),
+                            "message": "An OTP has been sent to your email. Please verify it. To cancel, type 'exit'",
+                            "route": "otp verification",
+                            "next": "transfer money",
                         }, status=200)
                     
                     elif respone.get("confirmation_message") in ["Cancelled", "Cancelled."]:
                         
-                        return Response({"status": True, "data": None, "message": "Transaction cancelled.", "route":None}, status=200)
+                        return Response({"status": True, "data": None, "message": "Transaction cancelled.", "route":None, "next":"router"}, status=200)
 
                     else:
-                        return Response({"status": True, "data": respone.get("data"), "message": respone.get("confirmation_message"), "route":"complete"}, status=200)
+                        return Response({"status": True, "data": respone.get("data"), "message": respone.get("confirmation_message"), "route":"complete", "next": "transfer money"}, status=200)
+                    
+            if data.get("route") == "otp verification":
+
+                final_data = data.get("data")
+                stored_otp = cache.get(f"otp_{user_id}")
+                user_otp = data.get("user_input", None)
+
+                if user_otp.lower().strip(".") not in ["exit", "cancel"]:
+
+                    if not stored_otp:
+                        return Response({"status": True, "data": final_data, "message": "OTP expired. Please request a new OTP.", "route":"otp verification", "next":"transfer money"}, status=200)
+                    else:
+                        if stored_otp == user_otp:
+                            cache.delete(f"otp_{user_id}")  # Delete OTP from cache after successful verification
+
+                                        
+                            recipient_account_number = final_data.get("account_number")
+                            amount = final_data.get("amount")
+                            amount = Decimal(str(amount))
+                            cleaned_account_number = recipient_account_number.replace(" ", "")
+                            recipient_account = BankAccount.objects.get(account_number=15099749216610)
+                            sender_account = BankAccount.objects.get(user=user)
+                            
+
+                            # 🔐 Optional: add service fee logic here if needed
+                            service_fee = Decimal("0.00")
+                            total_amount = amount + service_fee
+
+                            # 🔄 Update balances
+                            sender_account.balance -= total_amount
+                            recipient_account.balance += amount
+                            sender_account.save()
+                            recipient_account.save()
+                            tx_id = generate_unique_transaction_id()
+
+
+                            # 🧾 Log debit (sender)
+                            Transaction.objects.create(
+                                user=user,
+                                transaction_id=tx_id,
+                                stan=generate_unique_stan(),
+                                rrn=generate_unique_rrn(),
+                                transaction_type="debit",
+                                amount=amount,
+                                service_fee=service_fee,
+                                total_amount=total_amount,
+                                source_account_title=user.name,
+                                source_bank=sender_account.bank_name,
+                                source_account_number=sender_account.account_number,
+                                destination_account_title=recipient_account.user.name,
+                                destination_bank=recipient_account.bank_name,
+                                destination_account_number=recipient_account.account_number,
+                                channel="Raast"
+                            )
+
+                            # 🧾 Log credit (recipient)
+                            Transaction.objects.create(
+                                user=recipient_account.user,
+                                transaction_id=tx_id,
+                                stan=generate_unique_stan(),
+                                rrn=generate_unique_rrn(),
+                                transaction_type="credit",
+                                amount=amount,
+                                service_fee=Decimal("0.00"),
+                                total_amount=amount,
+                                source_account_title=user.name,
+                                source_bank=sender_account.bank_name,
+                                source_account_number=sender_account.account_number,
+                                destination_account_title=recipient_account.user.name,
+                                destination_bank=recipient_account.bank_name,
+                                destination_account_number=recipient_account.account_number,
+                                channel="Raast"
+                            )
+
+                            return Response({"status": True, "data": None, "message": "OTP verified successfully. Your transaction has been paid.", "route":None, "next":"router"}, status=200)
+                        
+                        elif stored_otp and stored_otp != user_otp:
+                            return Response({"status": True, "data": final_data, "message": "Incorrect OTP. Please try again or type 'exit' to cancel.", "route":"otp verification", "next":"transfer money"}, status=200)
+                        
+                        else:
+                            return Response({"status": True, "data": final_data, "message": "OTP verification failed due to an unknown error. Please try again or type 'exit' to cancel.", "route":"otp verification", "next":"transfer money"}, status=200)
+
+                else:
+                    return Response({"status": True, "data": None, "message": "Operation canceled.", "route":None, "next":"router"}, status=200)
+                
 
         except json.JSONDecodeError:
-            return Response({"status": False, "data": None, "message": "Invalid JSON format", "route": None }, status=400)
+            return Response({"status": False, "data": None, "message": "Invalid JSON format", "next": "router" }, status=400)
         except Exception as e: 
-            return Response({"status": False, "data": None, "message": str(e), "route":None}, status=500)
+            return Response({"status": False, "data": None, "message": str(e), "next":"router"}, status=500)
 
 
-# class ExtractDataAPI(APIView):
-#     authentication_classes = [JWTAuthentication]  # ✅ Now this works
-#     permission_classes = [IsAuthenticated]
+class PayBillAPI(APIView):
+    authentication_classes = [JWTAuthentication]  # ✅ Now this works
+    permission_classes = [IsAuthenticated]
 
-#     def post(self, request):
-#         """API to extract structured data from user input (JWT Protected)"""
-#         try:
-#             data = request.data  # DRF automatically parses JSON
-#             user_input = data.get("user_input", "")
-#             extracted_data = extract_entities(user_input)
-#             return Response({"data": extracted_data}, status=200)
-#         except json.JSONDecodeError:
-#             return Response({"error": "Invalid JSON format"}, status=400)
-        
+    def post(self, request):
+        """API to route user input to the appropriate function (JWT Protected)"""
+        try:
+            user_id = request.user.id
+            user = User.objects.get(id=user_id)
+            user_email = user.email
+            data = request.data  # DRF automatically parses JSON
+            user_input = data.get("user_input", "")
+            history = data.get("history")
+            
+            if data.get("route") == "bill payment":
+                
+                structure =  {"consumer_number": None, "bill_detail": None}
+                unpaid_bills = Bill.objects.filter(user=request.user, payment_status=False)
+                bills_data = [
+                    {
+                        "bill_type": bill.bill_type,
+                        "company": bill.company,
+                        "consumer_number": bill.consumer_number,
+                        "amount": float(bill.amount),  # ensure it's JSON-serializable
+                        "due_date": bill.due_date.isoformat(),  # format date as string
+                    }
+                    for bill in unpaid_bills
+                ]
 
-# class CheckMissingInfoAPI(APIView):
-#     authentication_classes = [JWTAuthentication]
-#     permission_classes = [IsAuthenticated]
+                message_response = bill_status(structure, bills_data, user_input, history)
+                history.append({"user": user_input, "assistant": message_response.get("message")})
+                
 
-#     def post(self, request):
-#         """API to check missing fields in the extracted data (JWT Protected)"""
-#         try:
-#             data = request.data
-#             missing_info = check_missing_info(data)
-#             return Response(missing_info, status=200)
-#         except json.JSONDecodeError:
-#             return Response({"error": "Invalid JSON format"}, status=400)
+                if message_response["consumer_number"] and message_response.get("bill_detail") and message_response.get("message") in ["proceed", "proceed.", "Proceed", "Proceed."]:
+                    
+                    otp = generate_otp()
+                    cache.set(f"otp_{user_id}", otp, timeout=300)  # 5 min expiry
+                    send_user_registration_emails("mushafmughal12@gmail.com", otp)
+                    f_data = {"consumer_number": message_response.get("consumer_number"), "bill_detail": message_response.get("bill_detail")}
 
-# class UpdateDataAPI(APIView):
-#     authentication_classes = [JWTAuthentication]
-#     permission_classes = [IsAuthenticated]
+                    return Response({"status": True, "data": f_data, "message": "An OTP has been sent to your email. Please verify it. To cancel, type 'exit'", "history": history, "route": "otp verification", "next": "bill payment"}, status=200)
+                
+                else:
+                    return Response({"status": True, "data": {"consumer_number": message_response.get("consumer_number"), "bill_detail": message_response.get("bill_detail")}, "message": message_response.get("message"), "history": history, "route": "bill payment", "next": "bill payment"}, status=200)
+            
+            if data.get("route") == "otp verification":
+                
+                final_data = data.get("data")
+                stored_otp = cache.get(f"otp_{user_id}")
+                user_otp = data.get("user_input", None)
 
-#     def post(self, request):
-#         """API to update extracted JSON data based on user input (JWT Protected)"""
-#         try:
-#             data = request.data
-#             existing_data = data.get("data", {})
-#             user_response = data.get("user_response", "")
-#             missing_keys_message = data.get("missing_keys_message", "")
+                if user_otp.lower().strip(".") not in ["exit", "cancel"]:
 
-#             updated_data = update_json_data(existing_data, user_response, missing_keys_message)
-#             return Response({"data": updated_data}, status=200)
-#         except json.JSONDecodeError:
-#             return Response({"error": "Invalid JSON format"}, status=400)
-        
+                    if not stored_otp:
+                        return Response({"status": True, "data": final_data, "message": "OTP expired. Please request a new OTP.", "route":"otp verification", "next":"bill payment"}, status=200)
+                    else:
+                        if stored_otp == user_otp:
+                            cache.delete(f"otp_{user_id}")  # Delete OTP from cache after successful verification
+
+
+                            sender_account = BankAccount.objects.get(user=user)
+                            bill = final_data["bill_detail"]
+                            amount = Decimal(bill["amount"])
+                            service_fee = Decimal("1.00")
+                            total_amount = amount + service_fee
+                            tx_id = generate_unique_transaction_id()
+
+                            Transaction.objects.create(
+                                user=user,
+                                transaction_id=tx_id,
+                                stan=generate_unique_stan(),
+                                rrn=generate_unique_rrn(),
+                                transaction_type="bill_payment",
+                                amount=amount,
+                                service_fee=service_fee,
+                                total_amount=total_amount,
+                                source_account_title=user.name,
+                                source_bank=sender_account.bank_name,
+                                source_account_number=sender_account.account_number,
+                                destination_account_title=f"{bill['company']} ({bill['bill_type']})",
+                                destination_bank="Utility Billing",  # or a specific bank if known
+                                destination_account_number="********",  # Masked account number
+                                channel="Raast"
+                            )
+                            
+                            return Response({"status": True, "data": final_data, "message": "OTP verified successfully. Your bill has been paid.", "route":None, "next":"router"}, status=200)
+                        
+                        elif stored_otp and stored_otp != user_otp:
+                            return Response({"status": True, "data": None, "message": "Incorrect OTP. Please try again or type 'exit' to cancel.", "route":"otp verification", "next":"bill payment"}, status=200)
+                        
+                        else:
+                            return Response({"status": True, "data": None, "message": "OTP verification failed due to an unknown error. Please try again or type 'exit' to cancel.", "route":"otp verification", "next":"bill payment"}, status=200)
+
+                else:
+                    return Response({"status": True, "data": None, "message": "Operation canceled.", "route":None, "next":"router"}, status=200)
+
+
+        except json.JSONDecodeError:
+            return Response({"status": False, "data": None, "message": "Invalid JSON format", "next": "router" }, status=400)
+        except Exception as e: 
+            return Response({"status": False, "data": None, "message": str(e), "next":"router"}, status=500)
+

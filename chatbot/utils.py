@@ -7,8 +7,9 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 llm = ChatOllama(
-    model="qwen2.5:14b-instruct-q6_K",
-   # model= "qwen2.5:32b-instruct-q4_K_M",
+   # model="qwen2.5:14b-instruct-q6_K",
+   model= "qwen2.5:32b-instruct-q4_K_M",
+   # model="qwen2.5:14b",
     temperature=0,
    #  base_url="http://192.168.18.87:11434"
     base_url="https://xdzgbd6f-11434.inc1.devtunnels.ms/"
@@ -70,23 +71,26 @@ updater_prompt_eng = f"""
 You are an assistant that updates an existing dictionary based on a user-provided input. The input will be in a question-answer format. Your task is to strictly update the dictionary according to the rules below:
 
 **Rules**:
+
 1. **Update Only When Relevant**: Only update keys in the dictionary if the user's response explicitly provides a valid value for the corresponding key. 
    - If the response does not explicitly provide a value or is irrelevant, do not make any changes to the dictionary.
    - Ignore conversational phrases (e.g., "hi", "how are you", etc.) or any other irrelevant responses.
 
 2. **Preserve Existing Values**: For keys that already have a non-`null` value in the dictionary, do not overwrite them, even if the question asks about them. Only fill in keys that are `null` or missing.
 
-3. **Output Format**: Always return the updated dictionary in the exact same JSON format as the input. Do not include explanations, comments, or any additional text.
+3. **Cancellation Detection**: If the user's response is `"exit"`, then add a new key `"cancel"` to the dictionary with the value `"yes"`.
 
-4. **Literal Updates Only**: Update the dictionary strictly based on the value provided in the user's answer. Do not infer, guess, or interpret beyond the provided input.
+4. **Output Format**: Always return the updated dictionary in the exact same JSON format as the input. Do not include explanations, comments, or any additional text.
 
-5. **Validations**:
+5. **Literal Updates Only**: Update the dictionary strictly based on the value provided in the user's answer. Do not infer, guess, or interpret beyond the provided input.
+
+6. **Validations**:
    - For `account_number`: Accept only alphanumeric strings that could plausibly represent account numbers. Reject invalid or irrelevant inputs.
    - For `amount`: Accept only numeric values. Ignore any currency symbols or commas (e.g., `$7500` → `7500`).
    - For `bank_name`: Accept only plausible bank names.
    - For `recipient_name`: Accept any valid name or designation explicitly provided.
 
-6. **Handling Ambiguity**: If the user's response is ambiguous, irrelevant, or cannot be confidently mapped to a key, make no changes to the dictionary.
+7. **Handling Ambiguity**: If the user's response is ambiguous, irrelevant, or cannot be confidently mapped to a key, make no changes to the dictionary.
 
 **Examples**:
 
@@ -114,51 +118,78 @@ Answer: Hi, how are you?
 **Output 3**:
 {{"account_number": null, "amount": 7500, "bank_name": null, "recipient_name": null}}
 
+**Input 4**:
+Existing dictionary: {{"account_number": null, "amount": 7500, "bank_name": null, "recipient_name": null}}
+Question: Can you please provide recipient name?
+Answer: Cancel the transaction.
+
+**Output 4**:
+{{"account_number": null, "amount": 7500, "bank_name": null, "recipient_name": null, "cancel": "yes"}}
+
 ONLY output the updated dictionary. Perform the update now:
 """
 
 retriever_prompt_Eng = f"""
-You are a professional banking assistant. Your task is to review user-submitted input for a transaction and generate a clear, polite message that helps the user correct and complete their request.
+You are a professional banking assistant. Your task is to review user-submitted input for a transaction and:
 
-You will receive a two list with the following names:
+1. Generate a clear, polite message that helps the user correct and complete their request.
+2. Update the current transaction data by setting to null any fields listed in the "Error Keys".
+
+You will receive the following inputs:
 - "Missing Keys": a list of field names that were not provided (e.g., "amount", "account_number").
-- "Error Keys": a list of error messages for fields that were provided but are invalid (e.g., "This account number doesn't exist", "Insufficeint balance").
+- "Error Keys": a list of error messages for fields that were provided but are invalid (e.g., "This account number doesn't exist", "Insufficient balance").
+- "Current Data": a dictionary of the current transaction input (e.g., {{"account_number": "123", "amount": "500", ...}})
 
+**Your response should include two parts**:
 
-**Your response should**:
-1. **Combine Missing and Error Information**: Create a single, natural-sounding message that asks the user to provide any missing values and also points out any incorrect or invalid ones.
-2. **Use Professional Language**: Always be polite, clear, and professional in tone.
-3. **Avoid Bullet Points or Lists**: Return a single, well-structured sentence or paragraph.
-4. **Be Context-Aware**: The message should sound human — avoid templates or robotic phrasing.
+**Part 1: Message to the User**
+- Combine Missing and Error Information into a single, well-written message.
+- Use professional language — always polite, clear, and human-like.
+- Avoid bullet points or lists. Respond in a natural sentence or paragraph.
 
-**Examples**:
+**Part 2: Updated Data**
+- Take the "Current Data" dictionary and set to `null` any fields that appear to be incorrect, based on the "Error Keys".
+- Assume each error message clearly refers to a specific field (e.g., "This account number doesn't exist" → `account_number` = null).
+- Return the updated dictionary as valid JSON.
+
+**Your response must be a valid JSON object** with the following format:
+   
+   {{
+      "message": "<Your message here>",
+      "updated_data": <Updated JSON data>
+   }}
+
+**Example Scenario**:
 
 **Input**:
-"Missing Keys": ["bank_name", "amount"]
-"Error Keys": ["This account number doesn't exist"]
+"Missing Keys": ["bank_name", "amount"]  
+"Error Keys": ["This account number doesn't exist"]  
+"Current Data": {{
+    "account_number": "123456",
+    "amount": null,
+    "bank_name": null,
+    "recipient_name": "John Doe"
+}}
 
 **Output**:
-- Could you please provide the name of the bank and the amount to proceed with the transaction? Also, the account number you entered doesn't appear to exist — could you double-check it?
+{{
+      "message": "Could you please provide the name of the bank and the amount to proceed with the transaction? Also, the account number you entered doesn't appear to exist — could you double-check it?",
+      "updated_data": {{
+         "account_number": null,
+         "amount": null,
+         "bank_name": null,
+         "recipient_name": "John Doe"
+      }}
 
-**Input**:
-"Missing Keys": ["recipient_name"]
-"Error Keys": []
-
-**Output**:
-- Could you please provide the name of the person or entity receiving the transaction?
-
-**Input**:
-"Missing Keys": []
-"Error Keys": ["Insufficient balance in the account"]
-
-**Output**:
-- It seems the amount entered exceeds the available balance. Could you please check and provide a valid amount?
+}}
 
 **Instructions**:
-1. Combine all missing and error messages into a single polite and professional message.
-2. Ask the user to provide valid values for any missing or incorrect fields.
-3. Be natural and flexible with sentence structure.
-4. Return only the final message, nothing else.
+1. Generate the message combining missing and error issues in a polite, natural way.
+2. Then return the updated data with null values for any incorrect fields.
+3. Your final response must include both parts in a valid JSON format.
+   - message (as plain text)
+   - updated_data (as a JSON object)
+4. Do not include any explanations, comments, or additional text outside the JSON object.
 """
 
 router_prompt_Eng = prompt = f"""
@@ -195,6 +226,9 @@ Now handle this query:
 confirmation_prompt_Eng = f"""
 You are a Transaction Confirmation Assistant for PromptPay Bank. Strictly follow these rules:
 
+**NOTE**:
+- "data" key and its value always in the JSON.
+
 1. **Initial Prompt** (when user_input is None/empty):
 - Generate a confirmation message using ALL these dynamic fields from data:
   - amount (with PKR prefix)
@@ -202,7 +236,7 @@ You are a Transaction Confirmation Assistant for PromptPay Bank. Strictly follow
   - bank_name
   - account_number
 
-Example:
+Example output:
    {{
       "data": {{"account_number": "12421343JJ2334", "amount": 12000, "bank_name": "PromptPay", "recipient_name": "Ahsan Ali"}},
       "user_input": null,
@@ -211,7 +245,7 @@ Example:
 
 2. **Handling Responses**:
 A) For POSITIVE responses (e.g. "yes", "confirm", "proceed"):
-  Example:
+  Example ouput:
    {{
       "data": {{"account_number": "12421343JJ2334", "amount": 12000, "bank_name": "PromptPay", "recipient_name": "Ahsan Ali"}},
       "user_input": null,
@@ -219,7 +253,7 @@ A) For POSITIVE responses (e.g. "yes", "confirm", "proceed"):
    }}
 
 B) For NEGATIVE responses (e.g. "no", "cancel"):
-  ExamplE:
+  ExamplE output:
    {{
       "data": {{"account_number": "12421343JJ2334", "amount": 12000, "bank_name": "PromptPay", "recipient_name": "Ahsan Ali"}},
       "user_input": null,
@@ -310,20 +344,24 @@ def check_missing_info(data1):
     # Extract "data" field safely
     data = data1.get("data")
     error = data1.get("error")
-    meta_data = data1.get("meta_data")
-    
+
     # Ensure "data" exists and is a dictionary
     if not isinstance(data, dict) or not data:
         return {"error": "Invalid or missing 'data' field."}
+    
+    if "cancel" in data and data["cancel"] == "yes":
+        return {"data": None, "message": "Cancelled"}
 
     # Check for missing or empty fields
     missing_keys = [key for key, value in data.items() if value in [None, ""]]
     
-    if missing_keys:
-      detail = f"Missing keys: {', '.join(missing_keys)} \nError keys: {error}"
+    if missing_keys or error:
+      detail = f"Missing keys: {', '.join(missing_keys)} \nError keys: {error} \nCurrent data: {data}"
       messages = [("system", retriever_prompt_Eng), ("human", detail)]
       retriever = llm.invoke(messages)
-      return {"data": data, "message": retriever.content, "error": error, "meta_data": meta_data}
+      retriever = json.loads(retriever.content)
+
+      return {"data": retriever.get("updated_data"), "message": retriever.get("message")}
     
     return { "data":data, "message": "Completed" }
 
@@ -358,7 +396,97 @@ def update_json_data(existing_data, user_response, missing_keys_message,user_id)
                user_bank = BankAccount.objects.get(user=user_id)
                if float(amount) > float(user_bank.balance):
                   error_messages.append("Insufficient balance for this transaction.")
-
-        return {"data":data, "error": [], "meta_data": []}
+         
+        return {"data":data, "error": error_messages}
     except json.JSONDecodeError:
         return {"error": "Failed to parse updater response"}
+    
+
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx #
+
+
+bill_prompt = f"""
+You are a smart and helpful digital banking assistant that helps users manage and pay bills. You are given the following:
+
+1. **User Input**: The latest user message.
+2. **User Bills Data**: A list of bills, each with:
+   - bill_type
+   - company
+   - consumer_number
+   - amount
+   - due_date (ISO 8601)
+3. **Base Structure**: JSON structure to populate.
+4. **Conversation History**: Chronological list of previous user-assistant exchanges.
+
+---
+
+**Your task is to return JSON with these fields:**
+
+- **consumer_number**: Only if the user has explicitly confirmed a specific bill (via current input or conversation history). Otherwise, null.
+- **bill_detail**: Same rule as above. Only fill if the user has confirmed intent to proceed.
+- **message**: 
+   - If user confirmed a specific bill and is ready to pay → respond only with `"proceed"`.
+   - If the user asked about bills (e.g., due date or type), always show the **full bill detail(s)**.
+   - If the user is vague, summarize all relevant bills and ask for clarification.
+   - If the input is unrelated to bills, reply: **"I can only assist with bill payment-related tasks."**
+
+---
+
+**Contextual Behavior Rules:**
+
+1. Always reference conversation history for vague inputs (e.g., "that one", "yes", or "okay").
+2. Always show full bill details when talking about any bill (even if not proceeding).
+3. Only populate consumer_number and bill_detail if the user clearly agrees to proceed (e.g., says "yes" or "pay this bill") *after a bill has been shown or clarified (maybe can be in conversation history)*.
+4. If multiple bills are relevant or input is vague, return nulls for both fields and include a summary in message.
+5. If no matching bill is found, explain it and return nulls.
+6. If user asks to pay all bills or more than one at once, explain only one bill can be paid at a time and return nulls.
+7. If input is off-topic or unrelated to bill payments, reply strictly: **"I can only assist with bill payment-related tasks."**
+
+---
+
+**Output Format**:
+
+{{
+  "consumer_number": <string or null>,
+  "bill_detail": <dict or null>,
+  "message": "<either a summary, clarification, or strictly 'proceed'>"
+}}
+
+**Sample `message` Responses for Different Scenarios**:
+(Use these as stylistic and structural guides when generating responses but adapt to the specific context.)
+
+1. **User asked to pay a specific bill (but hasn't confirmed yet)**:
+"I found your electricity bill from K-Electric. The amount is Rs. 2500 and it's due on April 20. Would you like to proceed with this payment?"
+
+2. **User asked vaguely (e.g., 'I want to pay my bill') and multiple bills exist**:
+"You have three bills: electricity (Rs. 2500, due April 20), gas (Rs. 1300, due May 13), and water (Rs. 800, due May 13). Which one would you like to pay?"
+
+3. **User asked about the soonest due bill**:
+"The electricity bill from K-Electric (Rs. 2500) is due the soonest on April 20. The gas (Rs. 1300) and water (Rs. 800) bills are both due on May 13. Would you like to pay the electricity bill?"
+
+4. **User confirmed a bill after being asked (ready to proceed)**:
+"proceed"
+
+---
+
+**IMPORTANT**:
+- Bill details must always be included in the message when a bill is discussed.
+- Only return `"proceed"` when it's time to move forward with payment.
+- If in doubt, do not proceed.
+- Respond **only** with the final JSON object.
+"""
+
+def bill_status(structure, bills_data, user_input, history):
+    
+    user_input = f"""User Current Input: {user_input}
+    Base Structure: {structure}
+    Bills Data: {bills_data}
+    Conversation History: {history}"""
+
+    messages = [("system", bill_prompt), ("human", user_input)]
+    response = llm.invoke(messages)
+   
+    try:
+        return json.loads(response.content)
+    except json.JSONDecodeError:
+        return {"error": "Failed to parse NER response"}

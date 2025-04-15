@@ -1,80 +1,89 @@
 [
     {
-        "model": "core_banking.transaction",
-        "fields": {
-            "user": 2,
-            "transaction_id": "tx2001xyz1234",
-            "transaction_type": "credit",
-            "amount": "1500.00",
-            "service_fee": "0.00",
-            "total_amount": "1500.00",
-            "transaction_time": "2025-03-21T08:30:00Z",
-            "source_account_title": "Ali Khan",
-            "source_bank": "PromptPay",
-            "source_account_number": "*******3445",
-            "destination_account_title": "User 4",
-            "destination_bank": "PromptPay",
-            "destination_account_number": "62999294185407",
-            "channel": "Raast"
-        }
+      "model": "core_banking.transaction",
+      "fields": {
+        "user": 2,
+        "transaction_id": "tx2001xyz1234",
+        "transaction_type": "credit",
+        "stan": "100001",
+        "rrn": "RRN100001",
+        "amount": "1500.00",
+        "service_fee": "0.00",
+        "total_amount": "1500.00",
+        "transaction_time": "2025-03-21T08:30:00Z",
+        "source_account_title": "Ali Khan",
+        "source_bank": "PromptPay",
+        "source_account_number": "*******3445",
+        "destination_account_title": "User 4",
+        "destination_bank": "PromptPay",
+        "destination_account_number": "62999294185407",
+        "channel": "Raast"
+      }
     },
     {
-        "model": "core_banking.transaction",
-        "fields": {
-            "user": 2,
-            "transaction_id": "tx2002xyz5678",
-            "transaction_type": "debit",
-            "amount": "500.00",
-            "service_fee": "5.00",
-            "total_amount": "505.00",
-            "transaction_time": "2025-03-20T14:15:00Z",
-            "source_account_title": "User 4",
-            "source_bank": "PromptPay",
-            "source_account_number": "62999294185407",
-            "destination_account_title": "Zara Shah",
-            "destination_bank": "PromptPay",
-            "destination_account_number": "*******6789",
-            "channel": "IBFT"
-        }
+      "model": "core_banking.transaction",
+      "fields": {
+        "user": 2,
+        "transaction_id": "tx2002xyz5678",
+        "transaction_type": "debit",
+        "stan": "100002",
+        "rrn": "RRN100002",
+        "amount": "500.00",
+        "service_fee": "5.00",
+        "total_amount": "505.00",
+        "transaction_time": "2025-03-20T14:15:00Z",
+        "source_account_title": "User 4",
+        "source_bank": "PromptPay",
+        "source_account_number": "62999294185407",
+        "destination_account_title": "Zara Shah",
+        "destination_bank": "PromptPay",
+        "destination_account_number": "*******6789",
+        "channel": "IBFT"
+      }
     },
     {
-        "model": "core_banking.transaction",
-        "fields": {
-            "user": 2,
-            "transaction_id": "tx2003xyz9101",
-            "transaction_type": "bill_payment",
-            "amount": "2899.00",
-            "service_fee": "0.00",
-            "total_amount": "2899.00",
-            "transaction_time": "2025-03-19T10:00:00Z",
-            "source_account_title": "User 4",
-            "source_bank": "PromptPay",
-            "source_account_number": "62999294185407",
-            "destination_account_title": "PTCL Broadband",
-            "destination_bank": "PromptPay",
-            "destination_account_number": "*******1122",
-            "consumer_name": "User 4",
-            "consumer_number": "03062061240",
-            "channel": "Bill Payment"
-        }
+      "model": "core_banking.transaction",
+      "fields": {
+        "user": 2,
+        "transaction_id": "tx2003xyz9101",
+        "transaction_type": "bill_payment",
+        "stan": "100003",
+        "rrn": "RRN100003",
+        "amount": "2899.00",
+        "service_fee": "0.00",
+        "total_amount": "2899.00",
+        "transaction_time": "2025-03-19T10:00:00Z",
+        "source_account_title": "User 4",
+        "source_bank": "PromptPay",
+        "source_account_number": "62999294185407",
+        "destination_account_title": "PTCL Broadband",
+        "destination_bank": "PromptPay",
+        "destination_account_number": "*******1122",
+        "consumer_name": "User 4",
+        "consumer_number": "03062061240",
+        "channel": "Bill Payment"
+      }
     },
     {
-        "model": "core_banking.transaction",
-        "fields": {
-            "user": 2,
-            "transaction_id": "tx2005xyz1415",
-            "transaction_type": "credit",
-            "amount": "6200.00",
-            "service_fee": "0.00",
-            "total_amount": "6200.00",
-            "transaction_time": "2025-03-17T20:00:00Z",
-            "source_account_title": "Ahmed Raza",
-            "source_bank": "PromptPay",
-            "source_account_number": "*******8888",
-            "destination_account_title": "User 4",
-            "destination_bank": "PromptPay",
-            "destination_account_number": "62999294185407",
-            "channel": "Raast"
-        }
+      "model": "core_banking.transaction",
+      "fields": {
+        "user": 2,
+        "transaction_id": "tx2005xyz1415",
+        "transaction_type": "credit",
+        "stan": "100004",
+        "rrn": "RRN100004",
+        "amount": "6200.00",
+        "service_fee": "0.00",
+        "total_amount": "6200.00",
+        "transaction_time": "2025-03-17T20:00:00Z",
+        "source_account_title": "Ahmed Raza",
+        "source_bank": "PromptPay",
+        "source_account_number": "*******8888",
+        "destination_account_title": "User 4",
+        "destination_bank": "PromptPay",
+        "destination_account_number": "62999294185407",
+        "channel": "Raast"
+      }
     }
-]
+  ]
+  

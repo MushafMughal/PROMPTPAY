@@ -6,7 +6,13 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.shortcuts import get_object_or_404
 from .models import *
 from .serializers import *
-from authentication.utils import CustomAPIException
+from .utils import *
+from authentication.utils import *
+import uuid
+from decimal import Decimal
+from django.forms.models import model_to_dict
+from django.core.cache import cache
+
 
 # Get user's bank account details
 @api_view(['GET'])
@@ -126,3 +132,52 @@ def transaction_details(request, transaction_id):
         raise CustomAPIException(False, None, str(e), 500)
 
 
+@api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def send_money(request):
+    """Send money to another bank account and log transaction"""
+
+    user = request.user
+    user_id = request.user.id
+    user_object = User.objects.get(id=user_id)
+    user_email = user_object.email
+    data = request.data
+
+
+    recipient_account_number = data.get("account_number")
+    amount = data.get("amount")
+
+    if not recipient_account_number or not amount:
+        raise CustomAPIException(False, None, "Account number and amount are required", 400)
+
+    try:
+        amount = Decimal(str(amount))
+        if amount <= 0:
+            raise CustomAPIException(False, None, "Amount must be a positive value", 400)
+    except:
+        raise CustomAPIException(False, None, "Invalid amount format", 400)
+
+    cleaned_account_number = recipient_account_number.replace(" ", "")
+
+    try:
+        recipient_account = BankAccount.objects.get(account_number=cleaned_account_number)
+    except BankAccount.DoesNotExist:
+        raise CustomAPIException(False, None, "Account number does not exist in the bank system", 404)
+
+    try:
+        sender_account = BankAccount.objects.get(user=user)
+    except BankAccount.DoesNotExist:
+        raise CustomAPIException(False, None, "Sender account not found", 404)
+    
+    if amount > float(sender_account.balance):
+        raise CustomAPIException(False, None, "Insufficient balance for this transaction", 400)
+    
+
+
+    new_otp = generate_otp()
+    cache.set(f"otp_{user_id}", new_otp, timeout=300)  # 5 min expiry
+    send_user_registration_emails("mushafmughal12@gmail.com", new_otp)
+
+    return Response({"status": True, "data": None, "message": "Verification OTP has been sent to your email. Verify it"}, status=200)
+    

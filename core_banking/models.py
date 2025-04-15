@@ -99,8 +99,10 @@ class Transaction(models.Model):
         ('bill_payment', 'Bill Payment'),  # Paying a bill
     ]
 
+    stan = models.CharField(max_length=12, unique=True)  # System trace number
+    rrn = models.CharField(max_length=20, unique=True)   # Retrieval reference number
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="transactions")  # User who owns the transaction
-    transaction_id = models.CharField(max_length=50, unique=True)  # Unique transaction identifier
+    transaction_id = models.CharField(max_length=50)  # Unique transaction identifier
     transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPES)  # Type of transaction
     transaction_time = models.DateTimeField(auto_now_add=True)  # Timestamp
 
@@ -126,3 +128,25 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.transaction_type} - Rs. {self.amount}"
+
+
+# Users Bill details
+class Bill(models.Model):
+    BILL_TYPE_CHOICES = [
+        ('electricity', 'Electricity'),
+        ('gas', 'Gas'),
+        ('water', 'Water'),
+        ('internet', 'Internet'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bills")
+    consumer_number = models.CharField(max_length=30)
+    company = models.CharField(max_length=255)
+    bill_type = models.CharField(max_length=50, choices=BILL_TYPE_CHOICES)
+    amount = models.DecimalField(max_digits=10, decimal_places=1)
+    due_date = models.DateField()  # New field for due date
+    payment_status = models.BooleanField(default=False)  # Indicates if the bill has been paid
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} -> {self.bill_type} bill ({self.company})"

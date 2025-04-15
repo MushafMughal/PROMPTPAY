@@ -9,4 +9,5 @@ urlpatterns = [
     path('addpayee/', add_payee, name='add-payee'),
     path('transactionlist/', list_transactions, name='list-transactions'),
     path('transactionlist/<str:transaction_id>/', transaction_details, name='transaction-details'),
+    path('sendmoney/', send_money, name='send-money'),
 ]
