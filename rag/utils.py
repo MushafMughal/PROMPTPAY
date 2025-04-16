@@ -29,19 +29,14 @@ def ingest():
     #
     embedding = FastEmbedEmbeddings()
     #Create vector store
-    Chroma.from_documents(documents=chunks,  embedding=embedding, persist_directory="rag/sql_chroma_db")
+    Chroma.from_documents(documents=chunks,  embedding=embedding, persist_directory="./rag/promptpay_pdf_sql_chroma_db")
 
 # ingest() #run only first time
 
 
-def llm_groq(prompt):
+def llm(prompt):
     chat_completion = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
-        # model="gpt-4o-mini",
-        # model="qwen-2.5-32b",
-        # model="gemma2-9b-it",
-        # model="allam-2-7b",
-        # model="llama-3.1-8b-instant",
         messages=[
             {"role": "system", "content": "You are a fast and efficient assistant."},
             {"role": "user", "content": str(prompt)},
@@ -51,25 +46,22 @@ def llm_groq(prompt):
 
 
 def rag_chain():
-
-    # llm = ChatOllama(
-    #     model="qwen2.5:14b-instruct-q6_K",
-    #     temperature=0,
-    #     base_url="http://192.168.18.86:11434"
-    # )
-
+    #model = ChatOllama(model="llama3.2",temperalture=0)
+    model = ChatOllama(model="llama3.2:latest", temperalture=0)
     prompt = PromptTemplate.from_template(
-        """
-        <s> [Instructions] You are a friendly assistant. Answer the question based only on the following context. 
-        If you don't know the answer, then reply, No Context availabel for this question {input}. [/Instructions] </s> 
-        [Instructions] Question: {input} 
-        Context: {context} 
-        Answer: [/Instructions]
-        """
+    """
+    You are a friendly assistant. Answer the question based only on the following context.
+    If the answer cannot be found in the context, say: "No context available for this question."
+
+    Question: {input}
+    Context: {context}
+
+    Answer:
+    """
     )
     #Load vector store
     embedding = FastEmbedEmbeddings()
-    vector_store = Chroma(persist_directory="rag/sql_chroma_db", embedding_function=embedding)
+    vector_store = Chroma(persist_directory="./rag/promptpay_pdf_sql_chroma_db", embedding_function=embedding)
 
     #Create chain
     retriever = vector_store.as_retriever(
@@ -80,7 +72,7 @@ def rag_chain():
         },
     )
 
-    document_chain = create_stuff_documents_chain(llm_groq, prompt)
+    document_chain = create_stuff_documents_chain(llm, prompt)
     chain = create_retrieval_chain(retriever, document_chain)
 
     return chain
