@@ -4,16 +4,8 @@ import json
 import random
 from core_banking.models import *
 from django.core.exceptions import ObjectDoesNotExist
-from langchain_huggingface import HuggingFaceEndpoint
 
-HUGGINGFACE_API_KEY= "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"
-repo_id = "Qwen/Qwen2.5-32B"
-llm = HuggingFaceEndpoint(
-        repo_id=repo_id,
-        huggingfacehub_api_token=HUGGINGFACE_API_KEY,
-        )
-
-llm2 = ChatOllama(
+llm = ChatOllama(
    # model="qwen2.5:14b-instruct-q6_K",
    model= "qwen2.5:32b-instruct-q4_K_M",
    # model="qwen2.5:14b",

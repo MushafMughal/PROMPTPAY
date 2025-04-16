@@ -144,14 +144,12 @@ class TransferAPI(APIView):
                         if stored_otp == user_otp:
                             cache.delete(f"otp_{user_id}")  # Delete OTP from cache after successful verification
 
-                                        
                             recipient_account_number = final_data.get("account_number")
                             amount = final_data.get("amount")
                             amount = Decimal(str(amount))
                             cleaned_account_number = recipient_account_number.replace(" ", "")
-                            recipient_account = BankAccount.objects.get(account_number=15099749216610)
+                            recipient_account = BankAccount.objects.get(account_number=cleaned_account_number)
                             sender_account = BankAccount.objects.get(user=user)
-                            
 
                             # 🔐 Optional: add service fee logic here if needed
                             service_fee = Decimal("0.00")
@@ -164,9 +162,8 @@ class TransferAPI(APIView):
                             recipient_account.save()
                             tx_id = generate_unique_transaction_id()
 
-
                             # 🧾 Log debit (sender)
-                            Transaction.objects.create(
+                            sender_transaction = Transaction.objects.create(
                                 user=user,
                                 transaction_id=tx_id,
                                 stan=generate_unique_stan(),
@@ -185,7 +182,7 @@ class TransferAPI(APIView):
                             )
 
                             # 🧾 Log credit (recipient)
-                            Transaction.objects.create(
+                            receiver_transaction = Transaction.objects.create(
                                 user=recipient_account.user,
                                 transaction_id=tx_id,
                                 stan=generate_unique_stan(),
@@ -203,7 +200,42 @@ class TransferAPI(APIView):
                                 channel="Raast"
                             )
 
-                            return Response({"status": True, "data": None, "message": "OTP verified successfully. Your transaction has been paid.", "route":None, "next":"router"}, status=200)
+                            response_data = {
+                                "sender": {
+                                    "transaction_id": sender_transaction.transaction_id,
+                                    "stan": sender_transaction.stan,
+                                    "rrn": sender_transaction.rrn,
+                                    "transaction_type": sender_transaction.transaction_type,
+                                    "amount": str(sender_transaction.amount),
+                                    "service_fee": str(sender_transaction.service_fee),
+                                    "total_amount": str(sender_transaction.total_amount),
+                                    "source_account_title": sender_transaction.source_account_title,
+                                    "source_bank": sender_transaction.source_bank,
+                                    "source_account_number": sender_transaction.source_account_number,
+                                    "destination_account_title": sender_transaction.destination_account_title,
+                                    "destination_bank": sender_transaction.destination_bank,
+                                    "destination_account_number": sender_transaction.destination_account_number,
+                                    "channel": sender_transaction.channel,
+                                },
+                                "receiver": {
+                                    "transaction_id": receiver_transaction.transaction_id,
+                                    "stan": receiver_transaction.stan,
+                                    "rrn": receiver_transaction.rrn,
+                                    "transaction_type": receiver_transaction.transaction_type,
+                                    "amount": str(receiver_transaction.amount),
+                                    "service_fee": str(receiver_transaction.service_fee),
+                                    "total_amount": str(receiver_transaction.total_amount),
+                                    "source_account_title": receiver_transaction.source_account_title,
+                                    "source_bank": receiver_transaction.source_bank,
+                                    "source_account_number": receiver_transaction.source_account_number,
+                                    "destination_account_title": receiver_transaction.destination_account_title,
+                                    "destination_bank": receiver_transaction.destination_bank,
+                                    "destination_account_number": receiver_transaction.destination_account_number,
+                                    "channel": receiver_transaction.channel,
+                                }
+                            }
+
+                            return Response({"status": True, "data": response_data, "message": "OTP verified successfully. Your transaction has been paid.", "route":None, "next":"router"}, status=200)
                         
                         elif stored_otp and stored_otp != user_otp:
                             return Response({"status": True, "data": final_data, "message": "Incorrect OTP. Please try again or type 'exit' to cancel.", "route":"otp verification", "next":"transfer money"}, status=200)
@@ -346,16 +378,22 @@ class ChangePasswordAPI(APIView):
                 response = password_retriever(llm_response,user_input,input_data)
 
                 if response["message"] in ["allowed"]:
-                    return Response({"status": True, "data": response["updated_data"], "message": "Your password was changed successfully.", "route": "complete", "next":"change password"}, status=200)
-
-                return Response({"status": True, "data": response["updated_data"], "message": response["message"], "route": "change password", "next":"change password"}, status=200)
+                    return Response({"status": True, "data": response["updated_data"], "message": "Would you like to proceed with these changes? Please type 'yes' or 'no' to confirm.", "route": "complete", "next":"change password"}, status=200)
+                else:
+                    return Response({"status": True, "data": response["updated_data"], "message": response["message"], "route": "change password", "next":"change password"}, status=200)
 
             if data.get("route") == "complete":
 
-                return Response({"status": True, "data": None, "message": "Your password was changed successfully.", "route": None, "next":"router"}, status=200)
-
-
-
+                if user_input.lower().strip(".") in ["yes", "proceed", "confirm", "ok"]:
+                        # Update password in the database
+                        user.set_password(input_data["new_password"])
+                        user.save()
+                        return Response({"status": True, "data": None, "message":"Your password has been changed successfully!", "route": None, "next":"router"}, status=200)
+                
+                elif user_input.lower().strip(".") in ["no", "cancel", "exit", "nope"]:
+                    return Response({"status": True, "data": None, "message": "Operation cancelled!", "route": None, "next":"router"}, status=200)
+                else:
+                    return Response({"status": True, "data": None, "message": "Invalid response. Please type 'yes' or 'no'.", "route": "complete", "next":"change password"}, status=200)
 
         except json.JSONDecodeError:
             return Response({"status": False, "data": None, "message": "Invalid JSON format", "next": "router" }, status=400)
