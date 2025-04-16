@@ -198,14 +198,14 @@ Your task is to strictly follow these rules:
 
 1. Routing:
 - If the user query is related to money transfer output exactly: "transfer money"
-- If the user query is about adding a payee, output exactly: "add payee"
+- If the user query is about changing app password, output exactly: "change password"
 - If the user query is about paying a bill, output exactly: "bill payment"
 
 2. Greetings:
 - If the user says hello/hi/greetings without specific banking requests, respond with:
   "Hello! I'm PromptPay Banking Assistant. I can help you with:
   - Transferring money
-  - Adding payees
+  - Changing app password
   - Bill payments"
 
 3. **Out-of-Scope Queries:**  
@@ -214,7 +214,7 @@ Your task is to strictly follow these rules:
 
 Examples:
 User: "I need help with my money transfer" → "transfer money"
-User: "I want to add a new payee" → "add payee"
+User: "I want to change password" → "change password"
 User: "Pay my electricity bill" → "bill payment"
 User: "Hi there!" → (give greeting response above)
 User: "What's the weather?" → "I only assist with banking transactions. Please ask about transfer money, payees, or bill payments."
@@ -313,8 +313,8 @@ def router(user_input):
     if response.content == "transfer money":
         return {"message": response.content, "point": "transfer money"}
     
-    elif response.content == "add payee":
-        return {"message": response.content, "point": "add payee"}
+    elif response.content == "change password":
+        return {"message": response.content, "point": "change password"}
     
     elif response.content == "bill payment":
         return {"message": response.content, "point": "bill payment"}
@@ -490,3 +490,246 @@ def bill_status(structure, bills_data, user_input, history):
         return json.loads(response.content)
     except json.JSONDecodeError:
         return {"error": "Failed to parse NER response"}
+    
+
+
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx #
+
+
+change_password_prompt = f"""
+You are a digital banking assistant. Your task is to help users change their password for their banking app.
+
+You will receive the following inputs:
+- **User Input**: The latest message from the user in natural language.
+- Your job is to extract the following values if clearly mentioned. Otherwise, return null for that field.
+
+---
+
+**Expected Output JSON Structure**:
+
+{{
+  "user_input": "<the original user message>",
+  "current_password": "<user's current password if mentioned, else null>",
+  "new_password": "<new password the user wants to set, if mentioned, else null>"
+}}
+
+---
+
+**Extraction Guidelines**:
+
+1. If the user clearly mentions their current password (e.g., "my current password is 1234"), extract it and set `current_password`.
+2. If the user provides a new password they want to change to (e.g., "I want to change it to @NewPass123"), extract it and set `new_password`.
+3. If neither password is mentioned, leave the fields as `null`.
+4. Always include the `user_input` field as-is, exactly reflecting the user's message.
+5. Do not attempt to validate password strength — only extract what's given.
+
+---
+
+**Examples**:
+
+User Input: "I want to change my password from pass123 to NewPass456"
+
+Output:
+{{
+  "user_input": "I want to change my password from pass123 to NewPass456",
+  "current_password": "pass123",
+  "new_password": "NewPass456"
+}}
+
+User Input: "change password"
+
+Output:
+{{
+  "user_input": "change password",
+  "current_password": null,
+  "new_password": null
+}}
+
+User Input: "My current password is qwerty123 and I want to update it to Secure@456"
+
+Output:
+{{
+  "user_input": "My current password is qwerty123 and I want to update it to Secure@456",
+  "current_password": "qwerty123",
+  "new_password": "Secure@456"
+}}
+
+---
+
+Return ONLY the final JSON. Do not explain anything. Proceed:
+"""
+
+password_retriever_prompt = f"""
+You are a digital banking assistant helping users securely change their password.
+
+You will receive:
+- `Recent LLM Response`: The assistant's previous response, to help provide context.
+- `user_input`: The latest input/message from the user.
+- `current_data`: A dictionary that may include the following keys:
+  - `user_first_input`
+  - `current_password`
+  - `new_password`
+
+---
+
+**Your task is to do the following:**
+
+1. Review the `current_data` and the latest `user_input`.
+2. Use `llm_response` as context — if it asked for a specific missing field, assume the `user_input` is a response to that request.
+3. Check if any required fields are **missing** or **invalid**:
+   - Required fields: `current_password`, `new_password`
+   - A valid `new_password` must:
+     - Be at least 8 characters long
+     - Not contain any spaces
+
+4. Update the `current_data` based on what the user said, **only if the new value is valid**:
+   - If the value from `user_input` should go into a specific field (based on `llm_response`) and is valid, update that field.
+   - If the value is **invalid**, do not update it. Instead, set the field to `null` and ask again.
+   - If a required field is still missing, politely request it.
+
+5. If all fields are present and valid:
+   - Set `message` to `"allowed"`
+   - Keep `updated_data` as-is
+
+---
+
+**Your response must be a valid JSON object with exactly two keys**:
+- `message`: A human-friendly message to the user, or `"allowed"` if all data is complete and valid.
+- `updated_data`: A dictionary with the same keys from `current_data`, with invalid or missing values set to `null`.
+
+---
+
+**EXAMPLE SCENARIOS**:
+
+
+✅ Valid follow-up from user:
+
+Input:
+{{
+  "llm_response": "Please provide your current password.",
+  "user_input": "12345678",
+  "current_data": {{
+    "user_first_input": "i want to change password to mushafsibtain.",
+    "current_password": null,
+    "new_password": "mushafsibtain."
+  }}
+}}
+Output:
+{{
+  "message": "allowed",
+  "updated_data": {{
+    "user_first_input": "i want to change password to mushafsibtain.",
+    "current_password": "12345678",
+    "new_password": "mushafsibtain."
+  }}
+}}
+
+❌ Invalid password with space:
+
+Input:
+{{
+  "llm_response": "What would you like your new password to be?",
+  "user_input": "Set it to 1234 5678",
+  "current_data": {{
+    "user_first_input": "i want to change my password",
+    "current_password": "oldpass123",
+    "new_password": "1234 5678"
+  }}
+}}
+Output:
+{{
+  "message": "The new password cannot contain spaces. Please provide a valid new password.",
+  "updated_data": {{
+    "user_first_input": "i want to change my password",
+    "current_password": "oldpass123",
+    "new_password": null
+  }}
+}}
+
+❌ Invalid password (too short):
+
+Input:
+{{
+  "llm_response": "Please provide a new password.",
+  "user_input": "Change to abc",
+  "current_data": {{
+    "user_first_input": "i want to change my password",
+    "current_password": "secure123",
+    "new_password": "abc"
+  }}
+}}
+Output:
+{{
+  "message": "The new password must be at least 8 characters long. Please provide a valid new password.",
+  "updated_data": {{
+    "user_first_input": "i want to change my password",
+    "current_password": "secure123",
+    "new_password": null
+  }}
+}}
+
+✅ Valid passwords (all good):
+
+Input:
+{{
+  "llm_response": "What would you like your new password to be?",
+  "user_input": "Change it to newpass2025",
+  "current_data": {{
+    "user_first_input": "i want to change my password",
+    "current_password": "oldpass123",
+    "new_password": "newpass2025"
+  }}
+}}
+Output:
+{{
+  "message": "allowed",
+  "updated_data": {{
+    "user_first_input": "i want to change my password",
+    "current_password": "oldpass123",
+    "new_password": "newpass2025"
+  }}
+}}
+
+**Instructions**:
+- Always return both message and updated_data
+- Never add extra text, bullet points, or formatting outside the JSON
+- Always keep valid values intact
+- Only set fields to null if they are missing or invalid
+- Final output must be valid JSON
+
+PERFORM NOW:
+"""
+
+def change_password(user_input):
+    """Extracts current and new password from user input."""
+    
+    user_input = f"""User Input: {user_input}"""
+    messages = [("system", change_password_prompt), ("human", user_input)]
+    response = llm.invoke(messages)
+   
+    try:
+        data = json.loads(response.content)
+        
+        return {
+               "user_first_input": data.get("user_input"),
+               "current_password": data.get("current_password"),
+               "new_password": data.get("new_password")
+         }
+    
+    except json.JSONDecodeError:
+        return {"error": "Failed to parse password change response"}
+    
+def password_retriever(llm_response, user_input, current_data):
+      """Validates and updates password change data."""
+      
+      user_input = f"""Recent LLM Response: {llm_response}
+      User Input: {user_input}
+      Current Data: {current_data}"""
+      
+      messages = [("system", password_retriever_prompt), ("human", user_input)]
+      response = llm.invoke(messages)
+      
+      try:
+         return json.loads(response.content)
+      except json.JSONDecodeError:
+         return {"error": "Failed to parse password retriever response"}

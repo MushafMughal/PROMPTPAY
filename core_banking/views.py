@@ -106,8 +106,13 @@ def list_transactions(request):
     """Retrieve a summary of all transactions for the logged-in user"""
     transactions = Transaction.objects.filter(user=request.user).order_by('-transaction_time')
     serializer = TransactionListSerializer(transactions, many=True)
-    # return Response(serializer.data, status=200)\
-    raise CustomAPIException(True, serializer.data, "Transactions fetched successfully", 200)
+
+    # Rename 'total_amount' to 'amount' in the serialized data
+    updated_data = [
+        {**item, 'amount': item.pop('total_amount')} for item in serializer.data
+    ]
+
+    raise CustomAPIException(True, updated_data, "Transactions fetched successfully", 200)
 
 
 # Get full details of a specific transaction (Detail View)

@@ -58,6 +58,15 @@ class RouterAPI(APIView):
                 else:
                     return Response({"status": True, "data": {"consumer_number": message_response.get("consumer_number"), "bill_detail": message_response.get("bill_detail")}, "message": message_response.get("message"), "history": history, "route": "bill payment", "next": router_response.get("point")}, status=200)
             
+            
+            elif router_response.get("point") == "change password":
+
+                llm_response = data.get("message", "")
+
+                response = password_retriever(llm_response, user_input, change_password(user_input))
+                return Response({"status": True, "data": response["updated_data"], "message": response["message"], "route": router_response.get("point"), "next": router_response.get("point")}, status=200)
+
+            
             else:
                 return Response({"status": True, "data": None, "message": router_response.get("message"), "route": router_response.get("point"), "next": "router"}, status=200)
 
@@ -314,3 +323,41 @@ class PayBillAPI(APIView):
         except Exception as e: 
             return Response({"status": False, "data": None, "message": str(e), "next":"router"}, status=500)
 
+
+
+class ChangePasswordAPI(APIView):
+    authentication_classes = [JWTAuthentication]  # ✅ Now this works
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """API to route user input to the appropriate function (JWT Protected)"""
+        try:
+            user_id = request.user.id
+            user = User.objects.get(id=user_id)
+            user_email = user.email
+            data = request.data  # DRF automatically parses JSON
+            
+            llm_response = data.get("message", "")
+            user_input = data.get("user_input", "")
+            input_data = data.get("data", "")
+
+            
+            if data.get("route") == "change password":
+                response = password_retriever(llm_response,user_input,input_data)
+
+                if response["message"] in ["allowed"]:
+                    return Response({"status": True, "data": response["updated_data"], "message": "Your password was changed successfully.", "route": "complete", "next":"change password"}, status=200)
+
+                return Response({"status": True, "data": response["updated_data"], "message": response["message"], "route": "change password", "next":"change password"}, status=200)
+
+            if data.get("route") == "complete":
+
+                return Response({"status": True, "data": None, "message": "Your password was changed successfully.", "route": None, "next":"router"}, status=200)
+
+
+
+
+        except json.JSONDecodeError:
+            return Response({"status": False, "data": None, "message": "Invalid JSON format", "next": "router" }, status=400)
+        except Exception as e: 
+            return Response({"status": False, "data": None, "message": str(e), "next":"router"}, status=500)

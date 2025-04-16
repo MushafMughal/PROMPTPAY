@@ -60,7 +60,7 @@ class TransactionListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Transaction
-        fields = ['transaction_id', 'name', 'transaction_type', 'amount']
+        fields = ['transaction_id', 'name', 'transaction_type', 'total_amount']
 
     def get_name(self, obj):
         """Returns the correct name depending on the transaction type"""
