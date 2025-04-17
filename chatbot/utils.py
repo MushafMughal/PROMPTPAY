@@ -5,7 +5,6 @@ import random
 from core_banking.models import *
 from django.core.exceptions import ObjectDoesNotExist
 
-
 llm = ChatOllama(
    # model="qwen2.5:14b-instruct-q6_K",
    model= "qwen2.5:32b-instruct-q4_K_M",

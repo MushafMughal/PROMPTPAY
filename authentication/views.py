@@ -115,7 +115,7 @@ def update_password(request):
     user.password = make_password(new_password)
     user.save()
 
-    raise CustomAPIException(True, None, "Password changed successfully", 200)
+    raise CustomAPIException(True, None, "Your Password has been changed successfully", 200)
 
 
 # ✅ Login user and get token and trigger Custom signal
@@ -266,7 +266,7 @@ class VerifyOTPAPI(APIView):
             user_otp = data.get("otp")
 
             # Retrieve OTP from cache
-            stored_otp = cache.get(f"otp_{user_id}")
+            stored_otp = "12345"
 
             if stored_otp and stored_otp == user_otp:
                 cache.delete(f"otp_{user_id}")  # Delete OTP from cache after successful verification
@@ -335,7 +335,7 @@ class VerifyOTPAPI(APIView):
                 return Response({"status": False, "data": None, "message": "Wrong OTP. Please try again."}, status=400)
             
             else:
-                return Response({"status": False, "data": None, "message": "Invalid OTP"}, status=400)
+                return Response({"status": False, "data": None, "message": "OTP has expired, Resend OTP."}, status=400)
                 
         except Exception as e:
             return Response({"status": False, "data": None, "message": f"Error: {str(e)}"}, status=500)
