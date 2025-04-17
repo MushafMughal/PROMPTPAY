@@ -235,7 +235,42 @@ class TransferAPI(APIView):
                                 }
                             }
 
-                            return Response({"status": True, "data": None, "message": "OTP verified successfully. Your transaction has been paid.", "route":None, "next":"router"}, status=200)
+                            response_data = {
+                                "sender": {
+                                    "transaction_id": sender_transaction.transaction_id,
+                                    "stan": sender_transaction.stan,
+                                    "rrn": sender_transaction.rrn,
+                                    "transaction_type": sender_transaction.transaction_type,
+                                    "amount": str(sender_transaction.amount),
+                                    "service_fee": str(sender_transaction.service_fee),
+                                    "total_amount": str(sender_transaction.total_amount),
+                                    "source_account_title": sender_transaction.source_account_title,
+                                    "source_bank": sender_transaction.source_bank,
+                                    "source_account_number": sender_transaction.source_account_number,
+                                    "destination_account_title": sender_transaction.destination_account_title,
+                                    "destination_bank": sender_transaction.destination_bank,
+                                    "destination_account_number": sender_transaction.destination_account_number,
+                                    "channel": sender_transaction.channel,
+                                },
+                                "receiver": {
+                                    "transaction_id": receiver_transaction.transaction_id,
+                                    "stan": receiver_transaction.stan,
+                                    "rrn": receiver_transaction.rrn,
+                                    "transaction_type": receiver_transaction.transaction_type,
+                                    "amount": str(receiver_transaction.amount),
+                                    "service_fee": str(receiver_transaction.service_fee),
+                                    "total_amount": str(receiver_transaction.total_amount),
+                                    "source_account_title": receiver_transaction.source_account_title,
+                                    "source_bank": receiver_transaction.source_bank,
+                                    "source_account_number": receiver_transaction.source_account_number,
+                                    "destination_account_title": receiver_transaction.destination_account_title,
+                                    "destination_bank": receiver_transaction.destination_bank,
+                                    "destination_account_number": receiver_transaction.destination_account_number,
+                                    "channel": receiver_transaction.channel,
+                                }
+                            }
+
+                            return Response({"status": True, "data": response_data, "message": "OTP verified successfully. Your transaction has been paid.", "route":None, "next":"router"}, status=200)
                         
                         elif stored_otp and stored_otp != user_otp:
                             return Response({"status": True, "data": final_data, "message": "Incorrect OTP. Please try again or type 'exit' to cancel.", "route":"otp verification", "next":"transfer money"}, status=200)
