@@ -9,7 +9,28 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
 import os
 from groq import Groq
+from google import genai
+from google.genai import types
+gclient = genai.Client(api_key="AIzaSyCxPjOUifGIh84uiCAp0KKFD7zJ1zTV-pU")
 client = Groq(api_key="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")
+
+# system_prompt = """You are given a question and a context. Answer the question **only if** the context clearly and directly supports it.
+
+# **INSTRUCTIONS:**
+# - Do NOT make assumptions, guesses, or inferred answers.
+# - If the context does NOT explicitly contain the information needed to answer, respond with:
+#   `No context available for this question.`
+
+# - If the question is a greeting (e.g., "hi", "hello", "hey") or a meta-question (e.g., "what can you do?", "who are you?", "tell me about yourself"), respond with:
+#   `I'm a RAG bot from PromptPay, created to help you with FAQ queries related to the PromptPay banking app. Ask me anything about it!`  
+
+# - Otherwise, if the context is missing, unrelated, or insufficient, always respond:
+#   `No context available for this question.`
+
+# - Your response must ONLY contain the final answer string. No explanation, formatting, or extra text.
+
+# **PERFORM NOW ON THESE:**
+# """
 
 def ingest():
     # Get the doc
@@ -33,6 +54,16 @@ def ingest():
 
 # ingest() #run only first time
 
+def call_llm(prompt):
+
+    response = gclient.models.generate_content(
+        model="gemini-2.0-flash",
+        config=types.GenerateContentConfig(
+            system_instruction="You are a fast and efficient assistant.",),
+        contents=prompt
+    )
+
+    return response.text
 
 def llm(prompt):
     chat_completion = client.chat.completions.create(
@@ -46,18 +77,15 @@ def llm(prompt):
 
 
 def rag_chain():
-    #model = ChatOllama(model="llama3.2",temperalture=0)
-    model = ChatOllama(model="llama3.2:latest", temperalture=0)
     prompt = PromptTemplate.from_template(
-    """
-    You are a friendly assistant. Answer the question based only on the following context.
-    If the answer cannot be found in the context, say: "No context available for this question."
-
-    Question: {input}
-    Context: {context}
-
-    Answer:
-    """
+        """
+        You are a friendly assistant. Answer the question based only on the following context. 
+        If you don't know the answer, then reply, No Context availabel for this question. 
+        
+        Question: {input} 
+        Context: {context} 
+        Answer:
+        """
     )
     #Load vector store
     embedding = FastEmbedEmbeddings()
@@ -76,3 +104,4 @@ def rag_chain():
     chain = create_retrieval_chain(retriever, document_chain)
 
     return chain
+

@@ -235,7 +235,7 @@ class TransferAPI(APIView):
                                 }
                             }
 
-                            return Response({"status": True, "data": response_data, "message": "OTP verified successfully. Your transaction has been paid.", "route":None, "next":"router"}, status=200)
+                            return Response({"status": True, "data": None, "message": "OTP verified successfully. Your transaction has been paid.", "route":None, "next":"router"}, status=200)
                         
                         elif stored_otp and stored_otp != user_otp:
                             return Response({"status": True, "data": final_data, "message": "Incorrect OTP. Please try again or type 'exit' to cancel.", "route":"otp verification", "next":"transfer money"}, status=200)
