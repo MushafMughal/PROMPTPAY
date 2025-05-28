@@ -77,12 +77,6 @@ def llm(prompt):
 
 def rag_chain():
 
-    # llm = ChatOllama(
-    #     model="qwen2.5:14b-instruct-q6_K",
-    #     temperature=0,
-    #     base_url="http://192.168.18.86:11434"
-    # )
-
     prompt = PromptTemplate.from_template(
         """
         <s> [Instructions] You are a friendly assistant. Answer the question based only on the following context. 

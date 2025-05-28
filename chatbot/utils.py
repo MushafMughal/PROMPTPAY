@@ -3,17 +3,17 @@ from langchain_core.messages import AIMessage
 import json
 import random
 from core_banking.models import *
+from google import genai
+from google.genai import types
 from django.core.exceptions import ObjectDoesNotExist
+client = genai.Client(api_key="AIzaSyA8Wam94d0FeYQ6VSfI1xWleCM1AvgI0VI")
 
 llm = ChatOllama(
-   # model="qwen2.5:14b-instruct-q6_K",
-   model= "qwen2.5:32b-instruct-q4_K_M",
-   # model="qwen2.5:14b",
+   model= "qwen2.5:14b", #qwen2.5:32b
+  #  model= "qwen2.5:32b-instruct-q4_K_M", #qwen2.5:14b-instruct-q6_K
     temperature=0,
-   #  base_url="http://192.168.18.87:11434"
-    base_url="https://xdzgbd6f-11434.inc1.devtunnels.ms/"
+    # base_url="https://xdzgbd6f-11434.inc1.devtunnels.ms/"
 )
-
 
 ner_prompt_Eng = f"""
 Your task is strictly to extract the following entities from the provided prompt: `account_number`, `amount`, `bank_name`, and `recipient_name`. 
@@ -288,47 +288,98 @@ def confirmation(data):
       user_input = f"""
       Input data: {data}
       """
-      messages = [
-         ("system", confirmation_prompt_Eng), 
-         ("human", user_input)
-      ]
+      # messages = [
+      #    ("system", confirmation_prompt_Eng), 
+      #    ("human", user_input)
+      # ]
    
-      response = llm.invoke(messages)
+      # response = llm.invoke(messages)
+
+      response = client.models.generate_content(
+          model="gemini-2.5-flash-preview-05-20",
+          config=types.GenerateContentConfig(
+              system_instruction=confirmation_prompt_Eng),
+          contents=user_input
+      )
+
+      content = response.text.replace("```json", "").replace("```", "").strip()
    
       try:
-         return json.loads(response.content)
+         return json.loads(content)
       except json.JSONDecodeError:
          return {"error": "Failed to parse confirmation response"}
 
 
 def router(user_input):
 
-    messages = [
-        ("system", router_prompt_Eng), 
-        ("human", user_input)
-        ]
-    response = llm.invoke(messages)
+    # messages = [
+    #     ("system", router_prompt_Eng), 
+    #     ("human", user_input)
+    #     ]
+    # response = llm.invoke(messages)
 
-    if response.content == "transfer money":
-        return {"message": response.content, "point": "transfer money"}
+    response = client.models.generate_content(
+        model="gemini-2.5-flash-preview-05-20",
+        config=types.GenerateContentConfig(
+            system_instruction=router_prompt_Eng),
+        contents=user_input
+    )
+
+    content = response.text
+    content = content.strip()
+
+    if content == "transfer money":
+        return {"message": content, "point": "transfer money"}
     
-    elif response.content == "change password":
-        return {"message": response.content, "point": "change password"}
+    elif content == "change password":
+        return {"message": content, "point": "change password"}
     
-    elif response.content == "bill payment":
-        return {"message": response.content, "point": "bill payment"}
+    elif content == "bill payment":
+        return {"message": content, "point": "bill payment"}
     else:
-        return {"message": response.content, "point": None}
+        return {"message": content, "point": None}
 
 
-def extract_entities(user_input):
+def extract_entities(user_input,user_id):
     """Extracts structured data from user input using the NER model."""
-    messages = [("system", ner_prompt_Eng), ("human", user_input)]
-    response = llm.invoke(messages)
-   
+    # messages = [("system", ner_prompt_Eng), ("human", user_input)]
+    # response = llm.invoke(messages)
+
+    response = client.models.generate_content(
+        model="gemini-2.5-flash-preview-05-20",
+        config=types.GenerateContentConfig(
+            system_instruction=ner_prompt_Eng),
+        contents=user_input
+    )
+
+    content = response.text.replace("```json", "").replace("```", "").strip()
+
     try:
-      #   response.content.split('```json\n')[1].split('\n```')[0]
-        return {'data':json.loads(response.content)}
+        data = json.loads(content)
+        
+        #if all keys are not null then return the data
+        if all(key is not None for key in data):
+            
+            error_messages = []
+            account_number = data.get("account_number")
+            
+            if account_number is not None:
+              cleaned_account_number = account_number.replace(" ", "")
+              if not BankAccount.objects.filter(account_number=cleaned_account_number).exists():
+                  error_messages.append("Account number does not exist in the bank system.")
+                  
+            amount = data.get("amount")
+            if amount is not None:
+              user_bank = BankAccount.objects.get(user=user_id)
+              if float(amount) > float(user_bank.balance):
+                  error_messages.append("Insufficient balance for this transaction.")
+        
+            return {'data': data, 'error': error_messages}
+        
+        else:
+            # If any key is None, return the response as is
+            return {'data': data}
+
     except json.JSONDecodeError:
         return {"error": "Failed to parse NER response"}
 
@@ -356,9 +407,21 @@ def check_missing_info(data1):
     
     if missing_keys or error:
       detail = f"Missing keys: {', '.join(missing_keys)} \nError keys: {error} \nCurrent data: {data}"
-      messages = [("system", retriever_prompt_Eng), ("human", detail)]
-      retriever = llm.invoke(messages)
-      retriever = json.loads(retriever.content)
+      # messages = [("system", retriever_prompt_Eng), ("human", detail)]
+      # retriever = llm.invoke(messages)
+      
+      response = client.models.generate_content(
+          model="gemini-2.5-flash-preview-05-20",  #"gemini-2.5-pro-preview-05-06"
+          config=types.GenerateContentConfig(
+              thinking_config = types.ThinkingConfig(
+                  thinking_budget=0,
+              ),
+              system_instruction=retriever_prompt_Eng),
+          contents=detail
+      )
+
+      content = response.text.replace("```json", "").replace("```", "").strip()
+      retriever = json.loads(content)
 
       return {"data": retriever.get("updated_data"), "message": retriever.get("message")}
     
@@ -373,12 +436,24 @@ def update_json_data(existing_data, user_response, missing_keys_message,user_id)
     2. Question: {missing_keys_message}
     3. User: {user_response}
     """
-    messages = [("system", updater_prompt_eng), ("human", user_input)]
-    updater = llm.invoke(messages)
+    # messages = [("system", updater_prompt_eng), ("human", user_input)]
+    # updater = llm.invoke(messages)
+
+    response = client.models.generate_content(
+        model="gemini-2.5-flash-preview-05-20",  #"gemini-2.5-pro-preview-05-06"
+        config=types.GenerateContentConfig(
+            thinking_config = types.ThinkingConfig(
+                thinking_budget=0,
+            ),
+            system_instruction=updater_prompt_eng),
+        contents=user_input
+    )
+
+    content = response.text.replace("```json", "").replace("```", "").strip()
 
     try:
         
-        data = json.loads(updater.content)
+        data = json.loads(content)
 
         error_messages = []
 

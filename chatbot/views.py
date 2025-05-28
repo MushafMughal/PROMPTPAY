@@ -24,9 +24,17 @@ class RouterAPI(APIView):
             data = request.data  # DRF automatically parses JSON
             user_input = data.get("user_input", "")
             router_response = router(user_input)
+            user_id = request.user.id
             
             if router_response.get("point") == "transfer money":
-                respone =  check_missing_info(extract_entities(user_input))
+                respone =  check_missing_info(extract_entities(user_input,user_id))
+
+
+                if respone.get("message") == "Completed":
+                    respone = confirmation({"data": respone.get("data"), "user_input":None})
+                    return Response({"status": True, "data": respone.get("data"), "message": respone.get("confirmation_message"), "route":"complete", "next":"transfer money"}, status=200)
+
+
                 return Response({"status": True, "data": respone.get("data"), "message": respone.get("message"), "route": router_response.get("point"), "next": router_response.get("point")}, status=200)
 
             elif router_response.get("point") == "bill payment":
@@ -94,6 +102,7 @@ class TransferAPI(APIView):
 
             if data.get("route") == "transfer money":
                 respone =  check_missing_info(update_json_data(input_data, user_input, message,user_id))
+                print(respone)
 
                 
                 if respone.get("message") == "Completed":
@@ -270,7 +279,7 @@ class TransferAPI(APIView):
                                 }
                             }
 
-                            return Response({"status": True, "data": response_data, "message": "OTP verified successfully. Your transaction has been paid.", "route":None, "next":"router"}, status=200)
+                            return Response({"status": True, "data": None, "message": "OTP verified successfully. Your transaction has been paid.", "route":None, "next":"router"}, status=200)
                         
                         elif stored_otp and stored_otp != user_otp:
                             return Response({"status": True, "data": final_data, "message": "Incorrect OTP. Please try again or type 'exit' to cancel.", "route":"otp verification", "next":"transfer money"}, status=200)
