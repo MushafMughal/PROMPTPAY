@@ -557,11 +557,20 @@ def bill_status(structure, bills_data, user_input, history):
     Bills Data: {bills_data}
     Conversation History: {history}"""
 
-    messages = [("system", bill_prompt), ("human", user_input)]
-    response = llm.invoke(messages)
-   
+    # messages = [("system", bill_prompt), ("human", user_input)]
+    # response = llm.invoke(messages)
+
+    response = client.models.generate_content(
+        model="gemini-2.5-flash-preview-05-20",
+        config=types.GenerateContentConfig(
+            system_instruction=bill_prompt),
+        contents=user_input
+    )
+
+    content = response.text.replace("```json", "").replace("```", "").strip()
+
     try:
-        return json.loads(response.content)
+        return json.loads(content)
     except json.JSONDecodeError:
         return {"error": "Failed to parse NER response"}
     
@@ -778,11 +787,21 @@ def change_password(user_input):
     """Extracts current and new password from user input."""
     
     user_input = f"""User Input: {user_input}"""
-    messages = [("system", change_password_prompt), ("human", user_input)]
-    response = llm.invoke(messages)
-   
+    # messages = [("system", change_password_prompt), ("human", user_input)]
+    # response = llm.invoke(messages)
+
+
+    response = client.models.generate_content(
+        model="gemini-2.5-flash-preview-05-20",
+        config=types.GenerateContentConfig(
+            system_instruction=change_password_prompt),
+        contents=user_input
+    )
+
+    content = response.text.replace("```json", "").replace("```", "").strip()
+  
     try:
-        data = json.loads(response.content)
+        data = json.loads(content)
         
         return {
                "user_first_input": data.get("user_input"),
@@ -800,10 +819,20 @@ def password_retriever(llm_response, user_input, current_data):
       User Input: {user_input}
       Current Data: {current_data}"""
       
-      messages = [("system", password_retriever_prompt), ("human", user_input)]
-      response = llm.invoke(messages)
+      # messages = [("system", password_retriever_prompt), ("human", user_input)]
+      # response = llm.invoke(messages)
+
+
+      response = client.models.generate_content(
+          model="gemini-2.5-flash-preview-05-20",
+          config=types.GenerateContentConfig(
+              system_instruction=password_retriever_prompt),
+          contents=user_input
+      )
+
+      content = response.text.replace("```json", "").replace("```", "").strip()
       
       try:
-         return json.loads(response.content)
+         return json.loads(content)
       except json.JSONDecodeError:
          return {"error": "Failed to parse password retriever response"}
